@@ -2,7 +2,9 @@ import 'package:cyclone/src/commom_widgets/form/form_header_widget.dart';
 import 'package:cyclone/src/constants/image_strings.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
+import 'package:cyclone/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class ForgotPasswordPhoneScreen extends StatelessWidget {
@@ -44,7 +46,9 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Get.to(() => const OTPScreen());
+                        },
                         child: const Text(tNext),
                       ),
                     )

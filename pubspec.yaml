@@ -8,6 +8,8 @@ environment:
 
 dependencies:
   cupertino_icons: ^1.0.6
+  firebase_auth: ^4.12.0
+  firebase_core: ^2.20.0
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.3.4
@@ -44,3 +46,4 @@ flutter:
    - assets/images/welcome_images/
    - assets/logo/
    - assets/images/forget_password/
+   - assets/images/homepage/
