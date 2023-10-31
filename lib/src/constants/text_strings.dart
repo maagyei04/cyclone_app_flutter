@@ -55,3 +55,10 @@ const String tForgotMailSubTitle = "Enter your registered E-mail to recieve OTP"
 const String tOtpTitle = "CO\nDE";
 const String tOtpSubTitle = "Verification";
 const String tOtpMessage = "Enter the verification code sent from ";
+
+
+// -- School Select Screen text
+const String tSelectSchoolTitle = "Select Your School";
+const String tSelectSchoolButtonText = "Continue";
+
+

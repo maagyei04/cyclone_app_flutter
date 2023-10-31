@@ -12,9 +12,9 @@ class TElevatedButtonTheme {
         borderRadius: BorderRadius.all(Radius.circular(7)),
       ),
       foregroundColor: tWhiteColor,
-      backgroundColor: tSecondaryColor,
+      backgroundColor: tPrimaryColor,
       side: const BorderSide(
-        color: tSecondaryColor,
+        color: tPrimaryColor,
       ),
       padding: const EdgeInsets.symmetric(vertical: tButtomHeight),
     ),
