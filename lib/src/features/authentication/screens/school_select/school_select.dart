@@ -1,7 +1,9 @@
 import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
-import 'package:cyclone/src/features/core/screens/home/home.dart';
+import 'package:cyclone/src/features/authentication/models/school_model.dart';
+import 'package:cyclone/src/features/core/controllers/profile_controller.dart';
+import 'package:cyclone/src/features/core/screens/image_upload/image_upload.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,15 +15,15 @@ class SchoolSelectScreen extends StatefulWidget {
 }
 
 class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
-  _SchoolSelectScreenState() {
-    _selectedVal = _schoolList[0];
-  }
 
-  final _schoolList = ["KENYON COLLEGE", "KNUST"];
-  String? _selectedVal = "";
+
+  final _schoolList = ["KENYON COLLEGE", "KNUST", "UNMTC", "UG", "HAVARD", "PENSA"];
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+    final controller = Get.put(ProfileController());
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -30,16 +32,18 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(tDefaultSize),
+        body: Container(
+          padding: const EdgeInsets.all(tDefaultSize - 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
                 child: Form(
+                  key: formKey,
                   child: Column(
                     children: [
                       DropdownButtonFormField(
-                        value: _selectedVal,
+                        value: controller.school,
                         items: _schoolList.map((e) {
                           return DropdownMenuItem(
                             value: e,
@@ -48,7 +52,7 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
                         }).toList(),
                         onChanged: (val) {
                           setState(() {
-                            _selectedVal = val as String;
+                            controller.school;
                           });
                         },
                         icon: const Icon(
@@ -64,24 +68,34 @@ class _SchoolSelectScreenState extends State<SchoolSelectScreen> {
                           border: OutlineInputBorder(),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(10.0),
-              child: SizedBox(
+
+                                const SizedBox(height: tFormHeight - 20,),
+
+
+                                    SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Get.to(() => const HomeScreen());
+                  onPressed: () async {
+                    // ignore: avoid_print
+                    print(controller.school);
+                    // ignore: avoid_print
+                    print(controller.school.text.trim());
+                    final userData = SchoolModel(
+                      school: controller.school.text.trim(),
+                    );
+
+                    await controller.updateRecordsSchool(userData);
                   },
                   child: const Text(tSelectSchoolButtonText),
                 ),
               ),
-            ),
-          ],
+                    ],
+                  ),
+                ),
+              ),
+
+            ],
+          ),
         ),
       ),
     );

@@ -7,23 +7,42 @@ environment:
   sdk: '>=3.1.3 <4.0.0'
 
 dependencies:
-  cupertino_icons: ^1.0.6
-  firebase_auth: ^4.12.0
-  firebase_core: ^2.20.0
   flutter:
     sdk: flutter
-  flutter_native_splash: ^2.3.4
-  flutter_otp_text_field: ^1.1.1
-  get: ^4.6.6
   google_fonts: ^6.1.0
+
+  ## -- SPLASHSCREEN PACKAGE
+  flutter_native_splash: ^2.3.4
+
+  ## -- ICON PACKAGES
+  cupertino_icons: ^1.0.6
+  line_awesome_flutter: ^2.0.0
+
+  ## -- FIREBASE PACKAGES
+  firebase_auth: ^4.12.0
+  firebase_core: ^2.20.0
+  cloud_firestore: ^4.12.2
+
+  ## -- OTP FIELD PACKAGE
+  flutter_otp_text_field: ^1.1.1
+
+  ## -- FROM FIELD PACKAGES
+  intl_phone_number_input: ^0.7.3+1
+  
+  ## -- STATE MANAGEMENT PACKAGES
+  get: ^4.6.6
+
+  ## -- ONBOARDING PACKAGES
   liquid_swipe: ^3.1.0
   smooth_page_indicator: ^1.1.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+## -- SPLASHSCREEN CONFIG
 flutter_native_splash:
   color: "#fcfcfc"
   color_dark: "#272727"

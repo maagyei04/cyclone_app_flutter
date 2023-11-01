@@ -7,6 +7,8 @@ const String tAppTagLine = "Learn To Share";
 const String tLogin = "Login";
 const String tSignup = "Signup";
 const String tNext = "Next";
+const String tSkip = "Skip";
+const String tContinue = "Continue";
 
 
 // -- On-Boarding Text
@@ -42,6 +44,7 @@ const String tAlreadyHaveAnAccount = "Already have an account ? ";
 const String tFirstName = "FirstName";
 const String tLastName = "LastName";
 const String tPhoneNumber = "PhoneNumber";
+const String tPhoneNumberHint = "e.g. +233541190955";
 
 // -- Forget Password  Text
 const String tForgotPasswordTitle = "Make Selection";
@@ -56,9 +59,13 @@ const String tOtpTitle = "CO\nDE";
 const String tOtpSubTitle = "Verification";
 const String tOtpMessage = "Enter the verification code sent from ";
 
-
 // -- School Select Screen text
 const String tSelectSchoolTitle = "Select Your School";
 const String tSelectSchoolButtonText = "Continue";
 
+//-- Image Upload Screen Text
+const String tImageUploadTitle = "Profile Photo";
+const String tImageUploadSubTitle = "Upload your profile picture that will identify you in the community";
+const String tImageUploadCameraText = "Upload Live Image";
+const String tImageUploadGalleryText = "Uplaod An Image";
 

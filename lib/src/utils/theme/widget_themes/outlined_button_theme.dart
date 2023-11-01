@@ -11,9 +11,9 @@ class TOutlinedButtonTheme {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(7)),
       ),
-      foregroundColor: tSecondaryColor,
+      foregroundColor: tPrimaryColor,
       side: const BorderSide(
-      color: tSecondaryColor,
+      color: tPrimaryColor,
       ),
       padding: const EdgeInsets.symmetric(vertical: tButtomHeight),
     ),    

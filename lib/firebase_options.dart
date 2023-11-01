@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -68,14 +71,5 @@ class DefaultFirebaseOptions {
     projectId: 'cocycle-backend',
     storageBucket: 'cocycle-backend.appspot.com',
     iosBundleId: 'com.example.cyclone',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD7_gDAs44vY3ERHr6WTKn3rfLk1G5RLx4',
-    appId: '1:573459885202:ios:bdab4a4c9c0506b9ff0a4b',
-    messagingSenderId: '573459885202',
-    projectId: 'cocycle-backend',
-    storageBucket: 'cocycle-backend.appspot.com',
-    iosBundleId: 'com.example.cyclone.RunnerTests',
   );
 }
