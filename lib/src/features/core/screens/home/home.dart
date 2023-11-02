@@ -1,4 +1,3 @@
-import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 
@@ -10,15 +9,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(tSelectSchoolTitle),
+        title: const Text("Home"),
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text("Home"),
-            const Text("Yet To Build The HomeScreen, #Michan"),
+            const Center(child: Text("Yet To Build The HomeScreen, #Michan")),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(

@@ -25,7 +25,7 @@ class LoginFooterWidget extends StatelessWidget {
             child: OutlinedButton.icon(
               icon: const Image(image: AssetImage(tGoogleLogoImage), width: 20.0,),
               onPressed: () {},
-              label: const Text(tSignInWithGoogle),
+              label: Text(tSignInWithGoogle, style: Theme.of(context).textTheme.displayMedium,),
             ),
           ),
 

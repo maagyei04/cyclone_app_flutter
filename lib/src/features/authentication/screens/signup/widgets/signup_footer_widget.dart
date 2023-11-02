@@ -19,18 +19,25 @@ class SignUpFooterWidget extends StatelessWidget {
           child: OutlinedButton.icon(
             onPressed: () {},
             icon: const Image(image: AssetImage(tGoogleLogoImage), width: 20.0,), 
-            label: const Text(tSignInWithGoogle),
+            label: Text(tSignInWithGoogle, style: Theme.of(context).textTheme.displayMedium,),
           ),
         ),
         TextButton(
           onPressed: () => Get.to(() => const LoginScreen()),
-          child: Text.rich(TextSpan(
-            children: [
-              TextSpan(text: tAlreadyHaveAnAccount, 
-              style: Theme.of(context).textTheme.bodySmall),
-              const TextSpan(text: tLogin),
+          child: Text.rich(
+          TextSpan(
+            text: tAlreadyHaveAnAccount,
+            style: Theme.of(context).textTheme.bodySmall,
+            children: const [
+              TextSpan(
+                text: tLogin,
+                style: TextStyle(
+                  color: Colors.blue,
+                )
+              ),
             ]
-          )),
+          )             
+        ),
         )
       ],
     );

@@ -1,18 +1,18 @@
 import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
-import 'package:cyclone/src/features/authentication/controllers/otp_controller.dart';
+import 'package:cyclone/src/features/authentication/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OTPScreen extends StatelessWidget {
-  const OTPScreen({super.key});
+class LoginOTPScreen extends StatelessWidget {
+  const LoginOTPScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var otpController = Get.put(OTPController());
+    var otpController = Get.put(LoginController());
     var otp;
 
     return Scaffold(
@@ -43,7 +43,7 @@ class OTPScreen extends StatelessWidget {
               focusedBorderColor: tPrimaryColor,
               onSubmit: (code) {
                 otp = code;
-                OTPController.instance.verifyOTP(otp);
+                LoginController.instance.verifyOTPLogin(otp);
               },
             ),
 
@@ -53,7 +53,7 @@ class OTPScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  OTPController.instance.verifyOTP(otp);
+                  LoginController.instance.verifyOTPLogin(otp);
                 }, 
                 child: const Text(tNext),
               ),

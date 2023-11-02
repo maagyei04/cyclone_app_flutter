@@ -7,6 +7,8 @@ const String tAppTagLine = "Learn To Share";
 const String tLogin = "Login";
 const String tSignup = "Signup";
 const String tNext = "Next";
+const String tSkip = "Skip";
+const String tContinue = "Continue";
 
 
 // -- On-Boarding Text
@@ -32,7 +34,7 @@ const String tDontHaveAnAccount = "Don't have an account ? ";
 const String tEmail = "E-mail";
 const String tEmailHint = "example@st.knust.edu.gh";
 const String tPassword = "Password";
-const String tForgotPassword = "Forgot password ?";
+const String tForgotPassword = "Not Available ?";
 const String tSignInWithGoogle = "Continue with Google";
 
 // -- SignUp screen Text
@@ -42,13 +44,14 @@ const String tAlreadyHaveAnAccount = "Already have an account ? ";
 const String tFirstName = "FirstName";
 const String tLastName = "LastName";
 const String tPhoneNumber = "PhoneNumber";
+const String tPhoneNumberHint = "e.g. +233541190955";
 
 // -- Forget Password  Text
 const String tForgotPasswordTitle = "Make Selection";
 const String tForgotPasswordSubTitle = "Select one of the options given below to reset password";
 const String tResetViaEmail = "Reset via E-Mail Verification";
-const String tResetViaPhone = "Reset via Phone Verification";
-const String tForgotPhoneSubTitle = "Enter your registered Phone Number to receive OTP";
+const String tResetViaPhone = "Reset via Password Verification";
+const String tForgotPhoneSubTitle = "Enter your registered password to receive OTP";
 const String tForgotMailSubTitle = "Enter your registered E-mail to recieve OTP";
 
 //-- OTP Screen Text
@@ -56,9 +59,13 @@ const String tOtpTitle = "CO\nDE";
 const String tOtpSubTitle = "Verification";
 const String tOtpMessage = "Enter the verification code sent from ";
 
-
 // -- School Select Screen text
 const String tSelectSchoolTitle = "Select Your School";
 const String tSelectSchoolButtonText = "Continue";
 
+//-- Image Upload Screen Text
+const String tImageUploadTitle = "Profile Photo";
+const String tImageUploadSubTitle = "Upload your profile picture that will identify you in the community";
+const String tImageUploadCameraText = "Upload Live Image";
+const String tImageUploadGalleryText = "Uplaod An Image";
 
