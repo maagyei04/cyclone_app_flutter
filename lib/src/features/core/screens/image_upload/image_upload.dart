@@ -31,23 +31,21 @@ class ImageUploadScreen extends StatelessWidget {
               ],
             ),
 
-            Positioned(
-              child: OutlinedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  side:  const BorderSide(color: Color(0xFF398d1c)),
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(20.0),
-                  foregroundColor: Colors.white, 
+            OutlinedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                side:  const BorderSide(color: Color(0xFF398d1c)),
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(20.0),
+                foregroundColor: Colors.white, 
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: const BoxDecoration(
+                  color: Colors.grey, shape: BoxShape.circle
                 ),
-                child: Container(
-                  padding: const EdgeInsets.all(20.0),
-                  decoration: const BoxDecoration(
-                    color: Colors.grey, shape: BoxShape.circle
-                  ),
-                  child: const Icon(Icons.camera_alt_rounded),
-                ),
-              )
+                child: const Icon(Icons.camera_alt_rounded),
+              ),
             ),
 
             const SizedBox(height: tFormHeight - 10,),

@@ -24,13 +24,20 @@ class SignUpFooterWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () => Get.to(() => const LoginScreen()),
-          child: Text.rich(TextSpan(
-            children: [
-              TextSpan(text: tAlreadyHaveAnAccount, 
-              style: Theme.of(context).textTheme.bodySmall,),
-              const TextSpan(text: tLogin,),
+          child: Text.rich(
+          TextSpan(
+            text: tAlreadyHaveAnAccount,
+            style: Theme.of(context).textTheme.bodySmall,
+            children: const [
+              TextSpan(
+                text: tLogin,
+                style: TextStyle(
+                  color: Colors.blue,
+                )
+              ),
             ]
-          )),
+          )             
+        ),
         )
       ],
     );

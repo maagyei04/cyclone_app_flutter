@@ -13,7 +13,7 @@ class ProfileController extends GetxController {
   final email = TextEditingController();
   final password = TextEditingController();
   final phoneNumber = TextEditingController();
-  late final school = TextEditingController();
+  final school = TextEditingController();
 
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());

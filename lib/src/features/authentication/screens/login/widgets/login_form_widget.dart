@@ -58,7 +58,6 @@ class LoginForm extends StatelessWidget {
             -- */
             TextFormField(
               controller: controller.phoneNumber,
-              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.phone_android_outlined),
                 labelText: tPhoneNumber,
@@ -77,7 +76,7 @@ class LoginForm extends StatelessWidget {
                 onPressed: () {
                   ForgotPasswordScreen.buildShowModalBottomSheet(context);
                 },
-                child: const Text(tForgotPassword),
+                child: const Text(tForgotPassword, style: TextStyle(fontSize: 12.0),),
               ),
             ),
             const SizedBox(height: 10.0,),

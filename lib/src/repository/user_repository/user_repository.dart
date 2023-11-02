@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
@@ -19,6 +21,7 @@ class UserRepository extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.green.withOpacity(0.1),
         colorText: Colors.green,
+        duration: const Duration(seconds: 5),
       );
       return result; // Return the DocumentReference
     } catch (error) {
@@ -28,8 +31,8 @@ class UserRepository extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.redAccent.withOpacity(0.1),
         colorText: Colors.red,
+        duration: const Duration(seconds: 5),
       );
-      // ignore: avoid_print
       print("ERROR: $error");
       rethrow;
     }
@@ -55,6 +58,13 @@ class UserRepository extends GetxController {
   }
 
   Future<void> updateUserRecordSchool(SchoolModel user) async {
-    await _db.collection("Users").doc(user.id).update(user.toJson());
+    await _db.collection("Users").doc(user.id).update(user.toJson()).then((_) {
+    print('New data added to the user document successfully.');
+  })
+  .catchError((error) {
+        print(user.id);
+        print(user.toJson());
+    print('Error adding new data: $error');
+  });
   }
-}
+}  

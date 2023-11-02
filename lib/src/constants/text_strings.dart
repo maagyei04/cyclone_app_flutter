@@ -34,7 +34,7 @@ const String tDontHaveAnAccount = "Don't have an account ? ";
 const String tEmail = "E-mail";
 const String tEmailHint = "example@st.knust.edu.gh";
 const String tPassword = "Password";
-const String tForgotPassword = "Forgot password ?";
+const String tForgotPassword = "Not Available ?";
 const String tSignInWithGoogle = "Continue with Google";
 
 // -- SignUp screen Text
@@ -50,8 +50,8 @@ const String tPhoneNumberHint = "e.g. +233541190955";
 const String tForgotPasswordTitle = "Make Selection";
 const String tForgotPasswordSubTitle = "Select one of the options given below to reset password";
 const String tResetViaEmail = "Reset via E-Mail Verification";
-const String tResetViaPhone = "Reset via Phone Verification";
-const String tForgotPhoneSubTitle = "Enter your registered Phone Number to receive OTP";
+const String tResetViaPhone = "Reset via Password Verification";
+const String tForgotPhoneSubTitle = "Enter your registered password to receive OTP";
 const String tForgotMailSubTitle = "Enter your registered E-mail to recieve OTP";
 
 //-- OTP Screen Text

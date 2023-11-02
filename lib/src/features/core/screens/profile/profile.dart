@@ -28,7 +28,10 @@ class ProfileScreen extends StatelessWidget {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 UserModel userData = snapshot.data as UserModel;
-                return  Column(
+                return 
+
+                
+                Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -71,13 +74,15 @@ class ProfileScreen extends StatelessWidget {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(userData.firstName),
+                                    Text(userData.firstName, style: Theme.of(context).textTheme.bodyMedium,),
                                     const SizedBox(width: 10.0,),
-                                    Text(userData.lastName),
+                                    Text(userData.lastName, style: Theme.of(context).textTheme.bodyMedium,),
                                   ],
                                 ),
                                 const SizedBox(height: tFormHeight,),
-                                Text(userData.email),
+                                Text(userData.email, style: Theme.of(context).textTheme.bodyMedium,),
+                                                                const SizedBox(height: tFormHeight,),
+                                Text(userData.school, style: Theme.of(context).textTheme.bodyMedium,),
                                 ],
                               ),
                               SizedBox(
@@ -91,6 +96,7 @@ class ProfileScreen extends StatelessWidget {
                               )
                             ],
                           );
+                          
               } else if (snapshot.hasError) {
                                   // ignore: avoid_print
                                   print(snapshot.error.toString());

@@ -4,6 +4,7 @@ import 'package:cyclone/src/features/authentication/screens/welcome/welcome_scre
 import 'package:cyclone/src/features/core/screens/profile/profile.dart';
 import 'package:cyclone/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -44,9 +45,23 @@ class AuthenticationRepository extends GetxController {
       }),
       verificationFailed: (e) {
         if (e.code == 'invalid-phone-number') {
-          Get.snackbar('error', 'The provided phone number is not valid.', duration: const Duration(seconds: 5));
+          Get.snackbar(
+            "Error",
+            "The provided phone number is not valid.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+            duration: const Duration(seconds: 5),
+          );          
         } else {
-          Get.snackbar('error', 'Something went wrong. Try again.', duration: const Duration(seconds: 5));
+          Get.snackbar(
+            "Error",
+            "Something went wrong. Try again.",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+            duration: const Duration(seconds: 5),
+          );           
         }
       }, 
 
@@ -67,7 +82,7 @@ class AuthenticationRepository extends GetxController {
     try { 
      await _auth.createUserWithEmailAndPassword(email: email, password: password);
      Get.snackbar('success', 'User successfuly created!');
-     firebaseUser.value != null ? Get.offAll(() => const SchoolSelectScreen()) : Get.to(() => const WelcomeScreen());
+     //firebaseUser.value != null ? Get.offAll(() => const SchoolSelectScreen()) : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch(e) {
       final ex = SignUpWithEmailAndpasswordFailure.code(e.code);
       Get.snackbar('FIREBASE AUTH EXCEPTION', ex.message, duration: const Duration(seconds: 5),);

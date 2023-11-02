@@ -51,7 +51,6 @@ class SignUpFormWidget extends StatelessWidget {
 
             TextFormField(
               controller: controller.phoneNumber,
-              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
               label: Text(tPhoneNumber),
               hintText: tPhoneNumberHint,
@@ -107,6 +106,7 @@ class SignUpFormWidget extends StatelessWidget {
                       firstName: controller.firstName.text.trim(),
                       lastName: controller.lastName.text.trim(),
                       phoneNumber: controller.phoneNumber.text.trim(),
+                      school: "Default...",
                     );
 
                     SignUpController.instance.createUser(user);

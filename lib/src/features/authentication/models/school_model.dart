@@ -1,14 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
 class SchoolModel {
   final String? id;
-  final String? school;
+  final String school;
 
 
 
   const SchoolModel({
     this.id,
-    this.school,
+    required this.school,
 
   });
 
@@ -20,9 +21,9 @@ class SchoolModel {
 
   factory SchoolModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data();
-
+    final id = document.id;
     return SchoolModel(
-      id: document.id,
+      id: id,
       school: data?["School"]
     );
   } 
