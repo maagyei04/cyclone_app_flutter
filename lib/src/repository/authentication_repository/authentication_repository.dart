@@ -1,6 +1,6 @@
 import 'package:cyclone/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
-import 'package:cyclone/src/features/authentication/screens/school_select/school_select.dart';
 import 'package:cyclone/src/features/authentication/screens/welcome/welcome_screen.dart';
+import 'package:cyclone/src/features/core/screens/image_upload/image_upload.dart';
 import 'package:cyclone/src/features/core/screens/profile/profile.dart';
 import 'package:cyclone/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +26,7 @@ class AuthenticationRepository extends GetxController {
 
 
   _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const ProfileScreen());
+    user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const ImageUploadScreen());
   }
 
 
@@ -69,13 +69,34 @@ class AuthenticationRepository extends GetxController {
   }
 
   Future<bool> verifyOTP (String otp) async {
-    var credentials = await _auth.signInWithCredential(
-      PhoneAuthProvider.credential(
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId.value, 
         smsCode: otp, 
-      ),
     );
-    return credentials.user != null ? true : false;
+    try {
+      var credentials = await _auth.signInWithCredential(credential);
+      Get.snackbar(
+        'Success',
+        'Your have successfully logged in.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+        duration: const Duration(seconds: 5),
+      );      
+      return credentials.user != null ? true : false;
+    }  catch (e) {
+          Get.snackbar(
+            "Error",
+            "Error during OTP verification: $e",
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+            duration: const Duration(seconds: 5),
+          );       
+      return false;   
+    
+    }
+    
   }
 
   Future<void> createUserWithEmailAndPassword(String email, String password) async {
@@ -98,7 +119,7 @@ class AuthenticationRepository extends GetxController {
     try { 
      await _auth.signInWithEmailAndPassword(email: email, password: password);
     firebaseUser.value != null ? Get.offAll(() => const ProfileScreen()) : Get.to(() => const WelcomeScreen());
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException {
       //login with email and password logic
     }  catch (_) {}
   }

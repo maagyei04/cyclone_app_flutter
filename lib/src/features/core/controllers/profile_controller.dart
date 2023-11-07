@@ -1,5 +1,6 @@
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
+import 'package:cyclone/src/features/core/models/image_picker_model.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -36,5 +37,9 @@ class ProfileController extends GetxController {
 
   updateRecordsSchool(SchoolModel user) async {
     await _userRepo.updateUserRecordSchool(user);
+  }
+
+  uploadProfileImage(ProfileImageModel user) async {
+    await _userRepo.saveProfileImage(user);
   }
 }

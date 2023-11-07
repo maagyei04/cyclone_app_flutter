@@ -27,7 +27,7 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
                 heightBetween: tFormHeight,
                 textAlign: TextAlign.center,
               ),
-      
+                  
               const SizedBox(height: tFormHeight,),
       
               Form(

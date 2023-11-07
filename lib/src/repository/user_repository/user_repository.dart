@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
+import 'package:cyclone/src/features/core/models/image_picker_model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +11,10 @@ import 'package:get/get.dart';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
-
+  final controller = Get.put(ImagePickerController());
 
   final _db = FirebaseFirestore.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
    Future<DocumentReference> createUser(UserModel user) async {
     try {
@@ -67,4 +71,35 @@ class UserRepository extends GetxController {
     print('Error adding new data: $error');
   });
   }
+
+  Future<String> uploadProfileImage() async {
+    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+
+    try {
+      Reference ref = _storage.ref().child('profileImage/$fileName.png');
+
+      UploadTask uploadTask = ref.putFile(controller.image.value);
+
+        TaskSnapshot snapshot = await uploadTask;
+       String downloadUrl =  await snapshot.ref.getDownloadURL();
+
+      return downloadUrl;
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
+
+  Future<String> saveProfileImage(ProfileImageModel user) async {
+    String resp = "Some error occurred";
+    
+    try {
+      await _db.collection("Users").doc(user.id).update(user.toJson());
+      resp = 'success';
+    } catch (e) {
+      print(e);
+    }
+    return resp; 
+  }
+
 }  

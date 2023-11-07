@@ -15,31 +15,33 @@ import 'package:get/get.dart';
                   ),
                   builder: (context) => Container(
                     padding: const EdgeInsets.all(tDefaultSize),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tForgotPasswordTitle, style: Theme.of(context).textTheme.displayLarge,),
-                        Text(tForgotPasswordSubTitle, style: Theme.of(context).textTheme.displayMedium,),
-                        const SizedBox(height: tFormHeight,),
-                        ForgotPasswordBtnWidget(
-                          btnIcon: Icons.mail_outline_outlined,
-                          title: tEmail,
-                          subTitle: tResetViaEmail,
-                          onTap: () {
-                            Navigator.pop(context);
-                            Get.to(() => const ForgotPasswordMailScreen());
-                          },
-                        ),
-                        const SizedBox(height: tFormHeight - 10,),
-                        ForgotPasswordBtnWidget(
-                          btnIcon: Icons.fingerprint_rounded,
-                          title: tPhoneNumber,
-                          subTitle: tResetViaPhone,
-                          onTap: () {
-                            Navigator.pop(context);
-                            Get.to(() => const ForgotPasswordPhoneScreen());                          },
-                        ),
-                      ]
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(tForgotPasswordTitle, style: Theme.of(context).textTheme.displayLarge,),
+                          Text(tForgotPasswordSubTitle, style: Theme.of(context).textTheme.displayMedium,),
+                          const SizedBox(height: tFormHeight,),
+                          ForgotPasswordBtnWidget(
+                            btnIcon: Icons.mail_outline_outlined,
+                            title: tEmail,
+                            subTitle: tResetViaEmail,
+                            onTap: () {
+                              Navigator.pop(context);
+                              Get.to(() => const ForgotPasswordMailScreen());
+                            },
+                          ),
+                          const SizedBox(height: tFormHeight - 10,),
+                          ForgotPasswordBtnWidget(
+                            btnIcon: Icons.fingerprint_rounded,
+                            title: tPhoneNumber,
+                            subTitle: tResetViaPhone,
+                            onTap: () {
+                              Navigator.pop(context);
+                              Get.to(() => const ForgotPasswordPhoneScreen());                          },
+                          ),
+                        ]
+                      ),
                     )
                   ),
                 );

@@ -1,18 +1,33 @@
+// ignore_for_file: avoid_print
+
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/controllers/signup_controller.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-class SignUpFormWidget extends StatelessWidget {
+class SignUpFormWidget extends StatefulWidget {
   const SignUpFormWidget({
     super.key,
   });
 
   @override
+  State<SignUpFormWidget> createState() => _SignUpFormWidgetState();
+}
+
+class _SignUpFormWidgetState extends State<SignUpFormWidget> {
+  String initialCountry = 'GH';
+
+  PhoneNumber number = PhoneNumber(isoCode: 'GH');
+  final controller = Get.put(SignUpController());
+ bool _isPasswordVisible = false;
+
+
+
+  @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SignUpController());
     final formKey = GlobalKey<FormState>();
 
 
@@ -21,8 +36,44 @@ class SignUpFormWidget extends StatelessWidget {
       child: Form(
         key: formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
+            InternationalPhoneNumberInput(
+              onInputChanged: (PhoneNumber number) {
+                print(number.phoneNumber);
+                    // Get the raw phone number from number.phoneNumber
+                final rawPhoneNumber = number.phoneNumber;
+
+                // Update your controller with the raw phone number
+                controller.phoneNumber.text = rawPhoneNumber!;
+                print(rawPhoneNumber);
+              },
+              onInputValidated: (bool value) {
+                print(value); 
+              },
+              selectorConfig: const SelectorConfig(
+                selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+              ),
+              ignoreBlank: false,
+              autoValidateMode: AutovalidateMode.disabled,
+              selectorTextStyle: const TextStyle(color: Colors.black),
+              initialValue: number,
+              formatInput: true,
+              keyboardType:
+                  const TextInputType.numberWithOptions(signed: true, decimal: true),
+              onSaved: (PhoneNumber number) {
+                print('On Saved: $number');
+              },
+              inputDecoration: const InputDecoration(
+                      label: Text(tPhoneNumber),
+                      prefixIcon: Icon(Icons.phone_android_rounded),
+              ),
+            ),
+
+
+                        const SizedBox(height: tFormHeight - 20,),
+
             Row(
               children: [
                 Expanded(
@@ -48,7 +99,7 @@ class SignUpFormWidget extends StatelessWidget {
             ),
 
             const SizedBox(height: tFormHeight - 20,),
-
+            /* --
             TextFormField(
               controller: controller.phoneNumber,
               decoration: const InputDecoration(
@@ -57,9 +108,8 @@ class SignUpFormWidget extends StatelessWidget {
               prefixIcon: Icon(Icons.phone_android_outlined),
               ),
             ),
-            
-            const SizedBox(height: tFormHeight - 20,),
-            
+            -- */
+                      
             TextFormField(
               controller: controller.email,
               decoration: const InputDecoration(
@@ -72,14 +122,25 @@ class SignUpFormWidget extends StatelessWidget {
             const SizedBox(height: tFormHeight - 20,),
             
             TextFormField(
+              obscureText: !_isPasswordVisible,
               controller: controller.password,
-              decoration: const InputDecoration(
-              label: Text(tPassword),
-              prefixIcon: Icon(Icons.fingerprint),
+              decoration: InputDecoration(
+              label: const Text(tPassword),
+              prefixIcon: const Icon(Icons.fingerprint),
+              suffixIcon: IconButton(
+                    icon: _isPasswordVisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });             
+              })
+              
               ),
             ),
             
             const SizedBox(height: tFormHeight - 20,),
+
+            
             
             SizedBox(
               width: double.infinity,
@@ -107,6 +168,7 @@ class SignUpFormWidget extends StatelessWidget {
                       lastName: controller.lastName.text.trim(),
                       phoneNumber: controller.phoneNumber.text.trim(),
                       school: "Default...",
+                      picture: "Default...",
                     );
 
                     SignUpController.instance.createUser(user);
@@ -120,4 +182,25 @@ class SignUpFormWidget extends StatelessWidget {
       ),
     );
   }
+
+ void getPhoneNumber(String phoneNumber) async {
+    PhoneNumber number =
+        await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
+
+    String parsableNumber = await PhoneNumber.getParsableNumber(number);
+    controller.phoneNumber.text = parsableNumber;
+
+    setState(() {
+      initialCountry = number.isoCode!;
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+
+
 }

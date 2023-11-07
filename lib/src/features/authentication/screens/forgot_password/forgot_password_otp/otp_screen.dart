@@ -13,7 +13,7 @@ class OTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var otpController = Get.put(OTPController());
-    var otp;
+    String otp;
 
     return Scaffold(
       body: Container( 
@@ -29,7 +29,7 @@ class OTPScreen extends StatelessWidget {
 
             const SizedBox(height: tFormHeight + 10,),
 
-            const Text("$tOtpMessage CloudOTP@cocycle.com", textAlign: TextAlign.center,),
+            const Text("$tOtpMessage CloudOTP@cocycle.com, to your Phone Number", textAlign: TextAlign.center,),
 
             const SizedBox(height: tFormHeight - 10,),
 

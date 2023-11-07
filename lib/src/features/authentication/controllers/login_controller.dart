@@ -1,4 +1,4 @@
-import 'package:cyclone/src/features/core/screens/profile/profile.dart';
+import 'package:cyclone/navigation_menu.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,6 @@ class LoginController extends GetxController {
 
   void verifyOTPLogin(String otp) async {
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-    isVerified ? Get.offAll(const ProfileScreen()) : Get.back();
+    isVerified ? Get.offAll(const NavigationMenu()) : Get.back();
   }
 }
