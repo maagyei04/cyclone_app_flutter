@@ -13,7 +13,7 @@ class LoginOTPScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var otpController = Get.put(LoginController());
-    String otp;
+    var otp;
 
     return Scaffold(
       body: Container( 
