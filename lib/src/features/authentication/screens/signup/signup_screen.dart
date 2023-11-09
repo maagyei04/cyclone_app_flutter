@@ -26,6 +26,7 @@ class SignUpScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
                 SignUpFormWidget(),
+
                 SignUpFooterWidget()
               ],
             ),

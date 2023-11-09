@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/controllers/signup_controller.dart';
@@ -18,9 +19,9 @@ class SignUpFormWidget extends StatefulWidget {
 }
 
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
-  String initialCountry = 'GH';
+  String initialCountry = 'US';
 
-  PhoneNumber number = PhoneNumber(isoCode: 'GH');
+  PhoneNumber number = PhoneNumber(isoCode: 'US');
   final controller = Get.put(SignUpController());
  bool _isPasswordVisible = false;
 
@@ -28,6 +29,12 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+
+    final isDarkMode = brightness == Brightness.dark;
+
     final formKey = GlobalKey<FormState>();
 
 
@@ -54,10 +61,11 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
               },
               selectorConfig: const SelectorConfig(
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                trailingSpace: false,
               ),
               ignoreBlank: false,
               autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: const TextStyle(color: Colors.black),
+              selectorTextStyle: TextStyle(color: isDarkMode ? tWhiteColor : tDarkColor),
               initialValue: number,
               formatInput: true,
               keyboardType:

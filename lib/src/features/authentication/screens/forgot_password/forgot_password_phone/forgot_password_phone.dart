@@ -35,8 +35,8 @@ class ForgotPasswordPhoneScreen extends StatelessWidget {
                   children: [
                     TextFormField(
                       decoration: const InputDecoration(
-                        label: Text(tPhoneNumber),
-                        hintText: tPhoneNumber,
+                        label: Text(tPassword),
+                        hintText: tPassword,
                         prefixIcon: Icon(Icons.mobile_friendly_rounded),
                       ),
                     ),

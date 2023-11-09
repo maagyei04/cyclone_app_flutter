@@ -1,6 +1,6 @@
+import 'package:cyclone/navigation_menu.dart';
 import 'package:cyclone/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:cyclone/src/features/authentication/screens/welcome/welcome_screen.dart';
-import 'package:cyclone/src/features/core/screens/image_upload/image_upload.dart';
 import 'package:cyclone/src/features/core/screens/profile/profile.dart';
 import 'package:cyclone/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +26,7 @@ class AuthenticationRepository extends GetxController {
 
 
   _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const ImageUploadScreen());
+    user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const NavigationMenu());
   }
 
 

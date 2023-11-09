@@ -1,25 +1,58 @@
+import 'package:cyclone/src/commom_widgets/categories/vertical_categories.dart';
+import 'package:cyclone/src/commom_widgets/primary_header_container.dart';
+import 'package:cyclone/src/commom_widgets/searchbar/search_bar.dart';
+import 'package:cyclone/src/commom_widgets/texts/section_heading.dart';
+import 'package:cyclone/src/constants/colors.dart';
+import 'package:cyclone/src/constants/image_strings.dart';
+import 'package:cyclone/src/constants/sizes.dart';
+import 'package:cyclone/src/features/core/screens/home/widgets/home_appbar.dart';
+import 'package:cyclone/src/features/core/screens/home/widgets/home_categories.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
+
+    var mediaQuery = MediaQuery.of(context);
+    var width = mediaQuery.size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Home", style: Theme.of(context).textTheme.displayLarge),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("Home", style: Theme.of(context).textTheme.bodyMedium,),
-          Center(child: Text("Yet To Build The HomeScreen, #Michan", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium,), ),
-        ],
-      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            TPrimaryHeaderContainer(
+              child: Column(
+                children: [
+                  const THomeAppBar(), 
+
+                  TSearchContainer(
+                    width: width, 
+                    text: 'Search...',
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(left: tDefaultSize - 20),
+                    child: Column(
+                      children: [
+                       SizedBox(height: 10,),
+                      
+                       THomeCategories()
+                      ],
+                    )
+                  )
+                ],
+              ),
+            ),
+            const Image(image: AssetImage(tOnBoardingImage2)),
+          ],
+
+        )
+      )
     );
   }
 }

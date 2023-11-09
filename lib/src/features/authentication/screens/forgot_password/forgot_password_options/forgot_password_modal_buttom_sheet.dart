@@ -34,7 +34,7 @@ import 'package:get/get.dart';
                           const SizedBox(height: tFormHeight - 10,),
                           ForgotPasswordBtnWidget(
                             btnIcon: Icons.fingerprint_rounded,
-                            title: tPhoneNumber,
+                            title: tPassword,
                             subTitle: tResetViaPhone,
                             onTap: () {
                               Navigator.pop(context);

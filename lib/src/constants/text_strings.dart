@@ -9,6 +9,7 @@ const String tSignup = "Signup";
 const String tNext = "Next";
 const String tSkip = "Skip";
 const String tContinue = "Continue";
+const String tWelcome = "Welcome,";
 
 
 // -- On-Boarding Text
@@ -68,4 +69,17 @@ const String tImageUploadTitle = "Profile Photo";
 const String tImageUploadSubTitle = "Upload your profile picture that will identify you in the community";
 const String tImageUploadCameraText = "Upload Live Image";
 const String tImageUploadGalleryText = "Uplaod An Image";
+
+// -- HomeScreen Text
+const String tHomeScreenTitle = "";
+const String tHomeScreenName = "Dennis";
+
+// -- Request Screen Texts
+const String tRequestScreenTitle = "Requests For An Item";
+const String tRequestScreenButtonText = "Request";
+const String tName = "Name";
+const String tDescription = "Description";
+const String tBrand = "Brand";
+const String tYear = "Year";
+const String tLocation = "Location";
 

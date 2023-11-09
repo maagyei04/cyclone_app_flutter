@@ -1,3 +1,4 @@
+import 'package:cyclone/src/utils/theme/widget_themes/app_bar_theme.dart';
 import 'package:cyclone/src/utils/theme/widget_themes/elevated_button_theme.dart';
 import 'package:cyclone/src/utils/theme/widget_themes/outlined_button_theme.dart';
 import 'package:cyclone/src/utils/theme/widget_themes/text_field_theme.dart';
@@ -14,7 +15,7 @@ class TAppTheme {
     outlinedButtonTheme: TOutlinedButtonTheme.lightOutlineButtonTheme,
     elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
-    
+    appBarTheme: TAppBarTheme.lightAppBarTheme,
   );
  
 
@@ -24,6 +25,7 @@ class TAppTheme {
     outlinedButtonTheme: TOutlinedButtonTheme.darkOulinedButtonTheme,
     elevatedButtonTheme: TElevatedButtonTheme.darkElevatedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.darkInputDecorationTheme,
+    appBarTheme: TAppBarTheme.darkAppBarTheme,
   );
   
 }

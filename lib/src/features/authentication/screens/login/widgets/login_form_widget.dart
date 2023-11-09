@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/controllers/login_controller.dart';
@@ -16,17 +17,24 @@ class LoginForm extends StatefulWidget {
 
   @override
   State<LoginForm> createState() => _LoginFormState();
+  
 }
 
 class _LoginFormState extends State<LoginForm> {
-  String initialCountry = 'GH';
+  String initialCountry = 'US';
 
-  PhoneNumber number = PhoneNumber(isoCode: 'GH');
+  PhoneNumber number = PhoneNumber(isoCode: 'US');
   final controller = Get.put(LoginController());
 
 
   @override
   Widget build(BuildContext context) {
+
+    var mediaQuery = MediaQuery.of(context);
+    var brightness = mediaQuery.platformBrightness;
+
+    final isDarkMode = brightness == Brightness.dark;
+
     final formKey = GlobalKey<FormState>();
 
     return Form(
@@ -168,11 +176,12 @@ class _LoginFormState extends State<LoginForm> {
                 print(value); 
               },
               selectorConfig: const SelectorConfig(
+                trailingSpace: false,
                 selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
               ),
               ignoreBlank: false,
               autoValidateMode: AutovalidateMode.disabled,
-              selectorTextStyle: const TextStyle(color: Colors.black),
+              selectorTextStyle: TextStyle(color: isDarkMode ? tWhiteColor : tDarkColor),
               initialValue: number,
               formatInput: true,
               keyboardType:

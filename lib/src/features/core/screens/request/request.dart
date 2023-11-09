@@ -1,3 +1,6 @@
+import 'package:cyclone/src/constants/sizes.dart';
+import 'package:cyclone/src/constants/text_strings.dart';
+import 'package:cyclone/src/features/core/screens/request/widgets/form_widget.dart';
 import 'package:flutter/material.dart';
 
 class RequestScreen extends StatelessWidget {
@@ -8,18 +11,20 @@ class RequestScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Request", style: Theme.of(context).textTheme.displayLarge),
+        title: Text(tRequestScreenTitle, style: Theme.of(context).textTheme.displayLarge),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("Request", style: Theme.of(context).textTheme.bodyMedium,),
-          Center(child: Text("Yet To Build The Request Screen, #Michan", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium,), ),
-        ],
-      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(tDefaultSize - 15),
+          child: const Column(
+            children: [
+              FormWidget(),
+            ],
+          ),
+        ),
+      )
     );
   }
 }

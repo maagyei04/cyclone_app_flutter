@@ -30,3 +30,6 @@ const String tOutlookLogoImage = "assets/logo/outlook.png";
 //-- Forgot Password Images
 const String tForgetPasswordImage = "assets/images/forget_password/2.png";
 const String tForgetPasswordImage1 = "assets/images/forget_password/3.png";
+
+//-- HomeScreen Images
+const String tProfile = "assets/images/homepage/profile.png";
