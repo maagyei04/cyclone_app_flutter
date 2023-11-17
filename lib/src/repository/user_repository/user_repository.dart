@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
+import 'package:cyclone/src/features/core/models/request_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
@@ -70,6 +71,32 @@ class UserRepository extends GetxController {
         print(user.toJson());
     print('Error adding new data: $error');
   });
+  }
+
+   Future<DocumentReference> addUserRequest(RequestModel user) async {
+    try {
+      final result = await _db.collection("Requests").add(user.toJson());
+      Get.snackbar(
+        'Success',
+        'Your reqquest has been successfully created.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+        duration: const Duration(seconds: 5),
+      );
+      return result; // Return the DocumentReference
+    } catch (error) {
+      Get.snackbar(
+        "Error",
+        "Something went wrong. Try Again",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+        duration: const Duration(seconds: 5),
+      );
+      print("ERROR: $error");
+      rethrow;
+    }
   }
 
   Future<String> uploadProfileImage() async {

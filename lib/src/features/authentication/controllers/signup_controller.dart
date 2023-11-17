@@ -26,10 +26,15 @@ class SignUpController extends GetxController {
     AuthenticationRepository.instance.phoneAuthentication(phoneNumber);
   }
 
+  void emailExist(String number) async{
+    await userRepo.getUserDetails(number);
+  }
+
   Future<void> createUser(UserModel user) async {
-    await userRepo.createUser(user);
+
     phoneAuthentication(user.phoneNumber);
     Get.to(() => const OTPScreen());
+     await userRepo.createUser(user);
   }
 
 }

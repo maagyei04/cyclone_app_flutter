@@ -29,6 +29,10 @@ class AuthenticationRepository extends GetxController {
     user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const NavigationMenu());
   }
 
+  String? getUserId() {
+  User? user = _auth.currentUser;
+  return user?.uid; // Returns the UID if the user is logged in, else returns null
+  }
 
   Future<void> phoneAuthentication(String phoneNumber) async {
     await _auth.verifyPhoneNumber(
@@ -56,14 +60,14 @@ class AuthenticationRepository extends GetxController {
         } else {
           Get.snackbar(
             "Error",
-            "Something went wrong. Try again.",
+            "Something went wrong. Try again.$e",
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red,
             duration: const Duration(seconds: 5),
           );           
         }
-      }, 
+      },
 
     );
   }
@@ -92,7 +96,7 @@ class AuthenticationRepository extends GetxController {
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red,
             duration: const Duration(seconds: 5),
-          );       
+          );        
       return false;   
     
     }

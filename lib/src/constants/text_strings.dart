@@ -83,3 +83,7 @@ const String tBrand = "Brand";
 const String tYear = "Year";
 const String tLocation = "Location";
 
+// -- Post Screen Image
+const String tPostScreenTitle = "Upload An Image";
+const String tPostScreenSubTitle = "Select the type of item you want to donate";
+

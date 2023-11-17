@@ -7,7 +7,8 @@ import 'package:cyclone/src/features/authentication/controllers/signup_controlle
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:intl_phone_number_field/intl_phone_number_field.dart';
+
 
 class SignUpFormWidget extends StatefulWidget {
   const SignUpFormWidget({
@@ -19,9 +20,12 @@ class SignUpFormWidget extends StatefulWidget {
 }
 
 class _SignUpFormWidgetState extends State<SignUpFormWidget> {
+  /* --
   String initialCountry = 'US';
 
   PhoneNumber number = PhoneNumber(isoCode: 'US');
+
+  -- */
   final controller = Get.put(SignUpController());
  bool _isPasswordVisible = false;
 
@@ -46,6 +50,78 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
 
+              InternationalPhoneNumberInput(
+                height: 60,
+                inputFormatters: const [],
+                formatter: MaskedInputFormatter('000 000 0000'),
+                initCountry: CountryCodeModel(
+                    name: "United States", dial_code: "+1", code: "US"),
+                betweenPadding: 15,
+                onInputChanged: (number) {
+                var fullNumber = '${number.dial_code} ${number.number}';
+                fullNumber = fullNumber.replaceAll(' ', '');
+                controller.phoneNumber.text = fullNumber;
+                print(fullNumber);
+                },
+                dialogConfig: DialogConfig(
+                  backgroundColor: const Color(0xFF444448),
+                  searchBoxBackgroundColor: const Color(0xFF56565a),
+                  searchBoxIconColor: tWhiteColor,
+                  countryItemHeight: 55,
+                  topBarColor: tWhiteColor,
+                  selectedItemColor: const Color(0xFF56565a),
+                  selectedIcon: const Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Icon(
+                      Icons.phone_android_rounded,
+                    )
+                  ),
+                  textStyle: TextStyle(
+                      color: const Color(0xFFFAFAFA).withOpacity(0.7),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                  searchBoxTextStyle: TextStyle(
+                      color: const Color(0xFFFAFAFA).withOpacity(0.7),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                  titleStyle: const TextStyle(
+                      color: Color(0xFFFAFAFA),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700),
+                  searchBoxHintStyle: TextStyle(
+                      color: const Color(0xFFFAFAFA).withOpacity(0.7),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600),
+                ),
+                countryConfig: CountryConfig(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 2, color: const Color(0xFF3f4046)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    noFlag: false,
+                    textStyle: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600)),
+                phoneConfig: PhoneConfig(
+                  focusedColor: tPrimaryColor,
+                  enabledColor: tPrimaryColor,
+                  radius: 8,
+                  hintText: tPhoneNumber,
+                  borderWidth: 2,
+                  textStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                  hintStyle: TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400),
+                ),
+            ),
+
+/* --
             InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
                 print(number.phoneNumber);
@@ -78,6 +154,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       prefixIcon: Icon(Icons.phone_android_rounded),
               ),
             ),
+            -- */
 
 
                         const SizedBox(height: tFormHeight - 20,),
@@ -191,6 +268,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
     );
   }
 
+/* --
  void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
         await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
@@ -208,7 +286,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
     controller.dispose();
     super.dispose();
   }
-
+-- */
 
 
 }

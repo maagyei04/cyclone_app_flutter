@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "573459885202",
-    "project_id": "cocycle-backend",
-    "storage_bucket": "cocycle-backend.appspot.com"
+    "project_number": "266399099148",
+    "project_id": "cocycle-bc37b",
+    "storage_bucket": "cocycle-bc37b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:573459885202:android:a8ff5082c587beddff0a4b",
+        "mobilesdk_app_id": "1:266399099148:android:d3642e85e07ae189910129",
         "android_client_info": {
           "package_name": "com.example.cyclone"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCm1tErypxf5JjhLEBBhuhaWfoxjVT3GAk"
+          "current_key": "AIzaSyAyX-ZaC6LjPwRMV5fffAfmf95HB4Zgb5Q"
         }
       ],
       "services": {

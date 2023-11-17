@@ -18,7 +18,7 @@ class LoginController extends GetxController {
      AuthenticationRepository.instance.loginUserWithEmailAndPassword(email, password);
   }
 
-  void loginUserWithPhoneNumber(String phoneNumber) {
+  void loginUserWithPhoneNumber(String phoneNumber, void print) {
     AuthenticationRepository.instance.phoneAuthentication(phoneNumber);
   }
 

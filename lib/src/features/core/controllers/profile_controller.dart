@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
@@ -28,6 +30,18 @@ class ProfileController extends GetxController {
       Get.snackbar('Error', 'Login to continue', duration: const Duration(seconds: 6));
     }
   }
+
+
+  getID() {
+    String? userID = _authRepo.getUserId();
+      // To get the user ID
+    if (userID != null) {
+      print("User ID: $userID");
+    } else {
+      print("User is not logged in.");
+    }
+  }
+
 
   Future<List<UserModel>> getAllUsers() async => _userRepo.allUsers();
 

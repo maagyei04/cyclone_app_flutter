@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:573459885202:ios:c5c3108bd6798c48ff0a4b",
-  "FIREBASE_PROJECT_ID": "cocycle-backend",
-  "GCM_SENDER_ID": "573459885202"
+  "GOOGLE_APP_ID": "1:266399099148:ios:26d65dea8f42e9c0910129",
+  "FIREBASE_PROJECT_ID": "cocycle-bc37b",
+  "GCM_SENDER_ID": "266399099148"
 }

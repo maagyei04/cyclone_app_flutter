@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,29 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBL5trcJdTWnTqb_wN_ipA2EJrxnyh3Fkg',
-    appId: '1:573459885202:web:845ee557b2e59efbff0a4b',
-    messagingSenderId: '573459885202',
-    projectId: 'cocycle-backend',
-    authDomain: 'cocycle-backend.firebaseapp.com',
-    storageBucket: 'cocycle-backend.appspot.com',
-    measurementId: 'G-73B4DREMXF',
+    apiKey: 'AIzaSyCkDTIWGuDOcIw-mbZ1UHcuYhLoVxYh_yI',
+    appId: '1:266399099148:web:27f2b09ea52e2e1e910129',
+    messagingSenderId: '266399099148',
+    projectId: 'cocycle-bc37b',
+    authDomain: 'cocycle-bc37b.firebaseapp.com',
+    storageBucket: 'cocycle-bc37b.appspot.com',
+    measurementId: 'G-78QKFTYQJ2',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCm1tErypxf5JjhLEBBhuhaWfoxjVT3GAk',
-    appId: '1:573459885202:android:a8ff5082c587beddff0a4b',
-    messagingSenderId: '573459885202',
-    projectId: 'cocycle-backend',
-    storageBucket: 'cocycle-backend.appspot.com',
+    apiKey: 'AIzaSyAyX-ZaC6LjPwRMV5fffAfmf95HB4Zgb5Q',
+    appId: '1:266399099148:android:d3642e85e07ae189910129',
+    messagingSenderId: '266399099148',
+    projectId: 'cocycle-bc37b',
+    storageBucket: 'cocycle-bc37b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD7_gDAs44vY3ERHr6WTKn3rfLk1G5RLx4',
-    appId: '1:573459885202:ios:c5c3108bd6798c48ff0a4b',
-    messagingSenderId: '573459885202',
-    projectId: 'cocycle-backend',
-    storageBucket: 'cocycle-backend.appspot.com',
+    apiKey: 'AIzaSyBSrQmTj97BjwxyCMKk0vyIKY1Joknq0BQ',
+    appId: '1:266399099148:ios:26d65dea8f42e9c0910129',
+    messagingSenderId: '266399099148',
+    projectId: 'cocycle-bc37b',
+    storageBucket: 'cocycle-bc37b.appspot.com',
     iosBundleId: 'com.example.cyclone',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBSrQmTj97BjwxyCMKk0vyIKY1Joknq0BQ',
+    appId: '1:266399099148:ios:12b46b3ac51420b4910129',
+    messagingSenderId: '266399099148',
+    projectId: 'cocycle-bc37b',
+    storageBucket: 'cocycle-bc37b.appspot.com',
+    iosBundleId: 'com.example.cyclone.RunnerTests',
   );
 }

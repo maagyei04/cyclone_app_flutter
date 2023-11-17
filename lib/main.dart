@@ -12,12 +12,12 @@ void main() {
     DefaultFirebaseOptions.currentPlatform, 
   ).then((value) => Get.put(AuthenticationRepository()));
   runApp(const MainApp());
-}
+}     
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatelessWidget { 
   const MainApp({super.key});
-
-  @override
+ 
+  @override 
   Widget build(BuildContext context) { 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

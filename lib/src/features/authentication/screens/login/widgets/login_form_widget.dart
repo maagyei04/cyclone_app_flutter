@@ -8,7 +8,7 @@ import 'package:cyclone/src/features/authentication/screens/forgot_password/forg
 import 'package:cyclone/src/features/authentication/screens/forgot_password/forgot_password_otp/login_otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:intl_phone_number_field/intl_phone_number_field.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
@@ -21,9 +21,13 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+
+  /* --
   String initialCountry = 'US';
 
   PhoneNumber number = PhoneNumber(isoCode: 'US');
+  -- */
+
   final controller = Get.put(LoginController());
 
 
@@ -89,12 +93,11 @@ class _LoginFormState extends State<LoginForm> {
 
             const SizedBox(height: tFormHeight - 20,),
 
-
+-- */
             InternationalPhoneNumberInput(
                 height: 60,
-                controller: controller.phoneNumber,
                 inputFormatters: const [],
-                formatter: MaskedInputFormatter('000 000 000'),
+                formatter: MaskedInputFormatter('000 000 0000'),
                 initCountry: CountryCodeModel(
                     name: "United States", dial_code: "+1", code: "US"),
                 betweenPadding: 15,
@@ -160,8 +163,8 @@ class _LoginFormState extends State<LoginForm> {
                       fontWeight: FontWeight.w400),
                 ),
             ),
-                              -- */
-
+                            
+/* --
             InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
                 print(number.phoneNumber);
@@ -191,7 +194,7 @@ class _LoginFormState extends State<LoginForm> {
                 print('On Saved: $number');
               },
             ),
-          
+          -- */
 
             const SizedBox(height: tFormHeight - 20,),
 
@@ -221,7 +224,8 @@ class _LoginFormState extends State<LoginForm> {
                   -- */
                   if(formKey.currentState!.validate()) {
                     LoginController.instance.loginUserWithPhoneNumber(
-                      controller.phoneNumber.text.trim()
+                      controller.phoneNumber.text.trim(),
+                      print(controller.phoneNumber.text.trim()),
                     );
                     Get.to(() => const LoginOTPScreen());
                   }                       
@@ -235,7 +239,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
   
-
+/* --
  void getPhoneNumber(String phoneNumber) async {
     PhoneNumber number =
         await PhoneNumber.getRegionInfoFromPhoneNumber(phoneNumber, 'US');
@@ -253,6 +257,6 @@ class _LoginFormState extends State<LoginForm> {
     controller.dispose();
     super.dispose();
   }
-
+-- */
 
   }
