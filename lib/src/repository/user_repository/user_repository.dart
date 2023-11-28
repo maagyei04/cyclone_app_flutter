@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
+import 'package:cyclone/src/features/core/models/category_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
@@ -17,14 +18,31 @@ class UserRepository extends GetxController {
   final _db = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+  Future<bool> doesPhoneNumberExist(String phoneNumber) async {
+    try {
+      final querySnapshot = await _db
+          .collection('Users')
+          .where('Phone', isEqualTo: phoneNumber)
+          .get();
+
+        print (querySnapshot.docs.isNotEmpty);
+      return querySnapshot.docs.isNotEmpty;
+
+    } catch (e) {
+      // Handle any errors in database query
+      print('Error checking phone number existence: $e');
+      return false;
+    }
+  }   
+
    Future<DocumentReference> createUser(UserModel user) async {
     try {
       final result = await _db.collection("Users").add(user.toJson());
       Get.snackbar(
         'Success',
         'Your account has been successfully created.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.withOpacity(0.1),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green.withOpacity(0.3),
         colorText: Colors.green,
         duration: const Duration(seconds: 5),
       );
@@ -33,8 +51,8 @@ class UserRepository extends GetxController {
       Get.snackbar(
         "Error",
         "Something went wrong. Try Again",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent.withOpacity(0.3),
         colorText: Colors.red,
         duration: const Duration(seconds: 5),
       );
@@ -55,6 +73,59 @@ class UserRepository extends GetxController {
   Future<List<UserModel>> allUsers() async {
     final snapshot = await _db.collection("Users").get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
+    return userData;
+  }
+
+  Future<List<dynamic>> allCategories() async {
+    List<dynamic> categories = [];
+
+    try {
+      // Access the Firestore instance
+      QuerySnapshot<Map<String, dynamic>> snapshot =
+          await _db.collection('Categories').get();
+
+      if (snapshot.docs.isNotEmpty) {
+        var categoryData = snapshot.docs.first.data()['category'];
+        print('Category Data: $categoryData'); // Check what's fetched
+
+        if (categoryData is List<dynamic>) {
+          categories = categoryData;
+          print('Categories: $categories'); // Check parsed categories
+        }
+      }
+    } catch (e) {
+      print('Error fetching categories: $e');
+    }
+
+    return categories;
+  }
+
+
+
+  Future<List<RequestModel>> allRequests() async {
+    final snapshot = await _db.collection("Requests").get();
+    final userData = snapshot.docs.map((e) => RequestModel.fromSnapshot(e)).toList();
+    
+    for (QueryDocumentSnapshot requestDoc in snapshot.docs) {
+      String userId = requestDoc['UserId'];
+
+      DocumentSnapshot userSnapshot = await _db.collection("Users").doc(userId).get();
+
+      if (userSnapshot.exists) {
+       Map<String, dynamic> userData1 = userSnapshot.data() as Map<String, dynamic>;
+
+        print('user info for UserID $userId: $userData1');
+
+        String userName = userData1["FirstName"] ?? 'Unknown';
+
+        print('User name: $userName'); 
+      } else {
+        print('User with UserID $userId does not exist.');
+      }
+
+      var postData = requestDoc.data();
+      print('Post data: $postData');
+    }
     return userData;
   }
 
@@ -79,8 +150,8 @@ class UserRepository extends GetxController {
       Get.snackbar(
         'Success',
         'Your reqquest has been successfully created.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green.withOpacity(0.1),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green.withOpacity(0.3),
         colorText: Colors.green,
         duration: const Duration(seconds: 5),
       );
@@ -89,8 +160,8 @@ class UserRepository extends GetxController {
       Get.snackbar(
         "Error",
         "Something went wrong. Try Again",
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent.withOpacity(0.3),
         colorText: Colors.red,
         duration: const Duration(seconds: 5),
       );
@@ -128,5 +199,17 @@ class UserRepository extends GetxController {
     }
     return resp; 
   }
+
+  Future<void> deleteUserByPhoneNumber(String phoneNumber) async {
+
+  CollectionReference users = _db.collection('Users');
+
+  QuerySnapshot querySnapshot = await users.where('Phone', isEqualTo: phoneNumber).get();
+
+  for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
+    await doc.reference.delete();
+  }
+
+}
 
 }  

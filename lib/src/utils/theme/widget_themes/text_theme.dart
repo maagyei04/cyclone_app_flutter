@@ -50,6 +50,21 @@ class TTextTheme {
         fontSize:  15,
         fontWeight: FontWeight.normal,
       ),
+      bodySmall: GoogleFonts.montserrat(
+        color: Colors.black,
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      ),
+      displaySmall: GoogleFonts.montserrat(
+        color: Colors.black,
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
+      labelMedium: GoogleFonts.montserrat(
+        color: Colors.black,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),
 
     );
   static TextTheme darkTextTheme = TextTheme(
@@ -97,6 +112,21 @@ class TTextTheme {
         color: Colors.black,
         fontSize:  15,
         fontWeight: FontWeight.normal,
+      ),
+      bodySmall: GoogleFonts.montserrat(
+        color: Colors.white,
+        fontSize: 12,
+        fontWeight: FontWeight.normal,
+      ),
+      displaySmall: GoogleFonts.montserrat(
+        color: Colors.white,
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ),
+      labelMedium: GoogleFonts.montserrat(
+        color: Colors.white,
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
       ),
     );
 }

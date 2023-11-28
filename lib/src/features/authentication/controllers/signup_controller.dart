@@ -32,9 +32,23 @@ class SignUpController extends GetxController {
 
   Future<void> createUser(UserModel user) async {
 
-    phoneAuthentication(user.phoneNumber);
-    Get.to(() => const OTPScreen());
-     await userRepo.createUser(user);
+    var proceed = await userRepo.doesPhoneNumberExist(user.phoneNumber);
+
+    if (proceed == false) {
+      await userRepo.createUser(user);
+      phoneAuthentication(user.phoneNumber);
+      Get.to(() => const OTPScreen(), arguments: user.phoneNumber);
+    } else {
+      print ('User creation failed !!');
+          Get.snackbar(
+            "Error",
+            "Account Already Exist!",
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.redAccent.withOpacity(0.3),
+            colorText: Colors.red,
+            duration: const Duration(seconds: 5),
+          );  
+    }
   }
 
 }

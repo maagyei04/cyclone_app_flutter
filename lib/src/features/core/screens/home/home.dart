@@ -7,6 +7,7 @@ import 'package:cyclone/src/constants/image_strings.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/home_appbar.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/home_categories.dart';
+import 'package:cyclone/src/features/core/screens/home/widgets/requests_posts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
@@ -22,38 +23,40 @@ class HomeScreen extends StatelessWidget {
     var width = mediaQuery.size.width;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  const THomeAppBar(), 
+      body: Column(
+        children: [
+          TPrimaryHeaderContainer(
+            child: Column(
+              children: [
+                const THomeAppBar(), 
 
-                  TSearchContainer(
-                    width: width, 
-                    text: 'Search...',
-                  ),
+                TSearchContainer(
+                  width: width, 
+                  text: 'Search...',
+                ),
 
-                  const Padding(
-                    padding: EdgeInsets.only(left: tDefaultSize - 20),
-                    child: Column(
-                      children: [
-                       SizedBox(height: 10,),
-                      
-                       THomeCategories(),
-                                              SizedBox(height: 10,),
+                const Padding(
+                  padding: EdgeInsets.only(left: tDefaultSize - 20),
+                  child: Column(
+                    children: [
+                     SizedBox(height: 10,),
+                    
+                     THomeCategories(),
+                     
+                     SizedBox(height: 10,),
 
-                      ],
-                    )
+                    ],
                   )
-                ],
-              ),
+                )
+              ],
             ),
-            const Image(image: AssetImage(tOnBoardingImage2)),
-          ],
+          ),
 
-        )
+          // -- Second
+          const Expanded(child: TRequestsPost()),
+
+        ],
+
       )
     );
   }

@@ -1,13 +1,17 @@
 import 'package:cyclone/src/features/authentication/screens/school_select/school_select.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
+import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:get/get.dart';
 
 class OTPController extends GetxController {
   static OTPController get instance => Get.find();
 
 
-  void verifyOTP(String otp) async {
+  void verifyOTP(String otp, String phoneNumber) async {
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-    isVerified ? Get.offAll(const SchoolSelectScreen()) : Get.back();
+    
+    isVerified ? Get.offAll(const SchoolSelectScreen()) : 
+      await UserRepository.instance.deleteUserByPhoneNumber(phoneNumber);
   }
+
 }

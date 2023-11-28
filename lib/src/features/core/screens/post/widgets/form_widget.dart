@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
+import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
 import 'package:cyclone/src/features/core/controllers/profile_controller.dart';
 import 'package:cyclone/src/features/core/controllers/request_controller.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
+import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,12 +25,20 @@ class _FormWidgetState extends State<FormWidget> {
 
  final controller = Get.put(RequestController());
  final controller2 = Get.put(ProfileController());
+ final controller3 = Get.put(ImagePickerController());
+ final controller4 = Get.put(UserRepository());
 
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
+              var icon =  OutlinedButton.icon(
+                      onPressed: () {
+                        controller3.pickImageCamera();
+                      },
+                      icon: const Icon(Icons.camera_alt_rounded), 
+                      label: const Text(''),
+                    );
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight ),
@@ -45,6 +55,7 @@ class _FormWidgetState extends State<FormWidget> {
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             
             children: [
               TextFormField(
@@ -97,12 +108,24 @@ class _FormWidgetState extends State<FormWidget> {
                 hintText: tDescription,
                 ),
               ), 
+
+              const SizedBox(height: tFormHeight - 20,),
+
+              Container(
+                height: 200.0,
+                width: 200.0,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: icon,
+              ),              
               
               const SizedBox(height: tFormHeight,),
               
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(
+                child: ElevatedButton( 
                   onPressed: () {
                     if(formKey.currentState!.validate()) {
       
@@ -118,10 +141,10 @@ class _FormWidgetState extends State<FormWidget> {
                       RequestController.instance.addRequest(user);
 
                     }
-                  },
-                  child: const Text(tRequestScreenButtonText),
+                  }, 
+                  child: const Text('Post'),
                 ),
-              )
+              ) 
             ],
           )
         );

@@ -225,9 +225,7 @@ class _LoginFormState extends State<LoginForm> {
                   if(formKey.currentState!.validate()) {
                     LoginController.instance.loginUserWithPhoneNumber(
                       controller.phoneNumber.text.trim(),
-                      print(controller.phoneNumber.text.trim()),
                     );
-                    Get.to(() => const LoginOTPScreen());
                   }                       
                 }, 
                 child: Text(tLogin.toUpperCase()),

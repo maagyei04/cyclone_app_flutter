@@ -2,11 +2,14 @@
 
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
+import 'package:cyclone/src/features/core/models/category_model.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
+import 'package:cyclone/src/features/core/models/request_model.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/request/request.dart';
 
 class ProfileController extends GetxController {
   static ProfileController get instance => Get.find();
@@ -40,8 +43,12 @@ class ProfileController extends GetxController {
     } else {
       print("User is not logged in.");
     }
+    return userID;
   }
 
+  Future<List<RequestModel>> getAllRequests() async => _userRepo.allRequests();
+
+  Future<List<dynamic>> getAllCategories() async =>  _userRepo.allCategories();
 
   Future<List<UserModel>> getAllUsers() async => _userRepo.allUsers();
 

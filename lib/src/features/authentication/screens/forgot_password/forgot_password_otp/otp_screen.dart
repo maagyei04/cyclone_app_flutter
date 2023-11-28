@@ -14,6 +14,7 @@ class OTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var otpController = Get.put(OTPController());
     var otp;
+    final phoneNumber = Get.arguments as String;
 
     return Scaffold(
       body: Container( 
@@ -43,7 +44,7 @@ class OTPScreen extends StatelessWidget {
               focusedBorderColor: tPrimaryColor,
               onSubmit: (code) {
                 otp = code;
-                OTPController.instance.verifyOTP(otp);
+                OTPController.instance.verifyOTP(otp, phoneNumber);
               },
             ),
 
@@ -53,7 +54,7 @@ class OTPScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  OTPController.instance.verifyOTP(otp);
+                  OTPController.instance.verifyOTP(otp, phoneNumber);
                 }, 
                 child: const Text(tNext),
               ),

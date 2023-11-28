@@ -69,16 +69,20 @@ class ImageUploadScreen extends StatelessWidget {
                     child: kIsWeb ?
                     controller.image.value.path == ''
                       ? const Icon(Icons.camera_alt_rounded)
-                      :  Image.network(
-                          controller.image.value.path
-                        ) 
+                      :  CircleAvatar(
+                        child: Image.network(
+                            controller.image.value.path
+                          ),
+                      ) 
 
                         :
 
                     controller.image.value.path == ''
                       ? const Icon(Icons.camera_alt_rounded)
-                      : Image.file(
-                        File(controller.image.value.path)
+                      : CircleAvatar(
+                        child: Image.file(
+                          File(controller.image.value.path)
+                        ),
                       ), 
 
                   ),

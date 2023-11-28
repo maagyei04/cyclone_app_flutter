@@ -13,7 +13,7 @@ class TPrimaryHeaderContainer extends StatelessWidget {
     return ClipPath(
       clipper: TCustomCurvedEdges(),
       child: SizedBox(
-        height: 250,
+        height: 230,
 
         child: Container(
           color: tPrimaryColor,

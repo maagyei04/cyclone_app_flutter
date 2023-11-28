@@ -1,4 +1,6 @@
+import 'package:cyclone/navigation_menu.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
+import 'package:cyclone/src/features/core/screens/home/home.dart';
 import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,7 @@ class RequestController extends GetxController {
 
   addRequest(RequestModel user) async {
     await userRepo.addUserRequest(user);
+    Get.back();
   }
 
 }

@@ -89,6 +89,7 @@ class AuthenticationRepository extends GetxController {
       );      
       return credentials.user != null ? true : false;
     }  catch (e) {
+        
           Get.snackbar(
             "Error",
             "Error during OTP verification: $e",
