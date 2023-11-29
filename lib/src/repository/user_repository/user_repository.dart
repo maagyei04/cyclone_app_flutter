@@ -3,11 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
+import 'package:cyclone/src/features/core/models/post_model.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
 import 'package:cyclone/src/features/core/models/category_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -149,7 +151,33 @@ class UserRepository extends GetxController {
       final result = await _db.collection("Requests").add(user.toJson());
       Get.snackbar(
         'Success',
-        'Your reqquest has been successfully created.',
+        'Your request has been successfully created.',
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.green.withOpacity(0.3),
+        colorText: Colors.green,
+        duration: const Duration(seconds: 5),
+      );
+      return result; // Return the DocumentReference
+    } catch (error) {
+      Get.snackbar(
+        "Error",
+        "Something went wrong. Try Again",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent.withOpacity(0.3),
+        colorText: Colors.red,
+        duration: const Duration(seconds: 5),
+      );
+      print("ERROR: $error");
+      rethrow;
+    }
+  }
+
+  Future<DocumentReference> addUserPost(PostModel user) async {
+    try {
+      final result = await _db.collection("Posts").add(user.toJson());
+      Get.snackbar(
+        'Success',
+        'Your post has been successfully created.',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green.withOpacity(0.3),
         colorText: Colors.green,
@@ -174,16 +202,43 @@ class UserRepository extends GetxController {
     String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 
     try {
-      Reference ref = _storage.ref().child('profileImage/$fileName.png');
+      Reference ref = _storage.ref().child('profileImage/$fileName');
 
-      UploadTask uploadTask = ref.putFile(controller.image.value);
-
+UploadTask uploadTask = ref.putFile(controller.image.value);
         TaskSnapshot snapshot = await uploadTask;
        String downloadUrl =  await snapshot.ref.getDownloadURL();
 
       return downloadUrl;
     } catch (e) {
       print(e);
+      return '';
+    }
+  }
+
+  Future<String> uploadPostImage() async {
+    String fileName = DateTime.now().toString();
+
+    try {
+      Reference ref = _storage.ref().child('postImages/$fileName');
+
+      UploadTask uploadTask = ref.putFile(controller.image.value);
+
+      print(controller.image.value);
+
+      TaskSnapshot snapshot = await uploadTask;
+       String downloadUrl =  await snapshot.ref.getDownloadURL();
+
+      return downloadUrl;
+    } catch (e) {
+      print(e);
+      Get.snackbar(
+        "Error",
+        "Something went wrong. Try Again",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.redAccent.withOpacity(0.3),
+        colorText: Colors.red,
+        duration: const Duration(seconds: 5),
+      );
       return '';
     }
   }
@@ -199,6 +254,7 @@ class UserRepository extends GetxController {
     }
     return resp; 
   }
+  
 
   Future<void> deleteUserByPhoneNumber(String phoneNumber) async {
 

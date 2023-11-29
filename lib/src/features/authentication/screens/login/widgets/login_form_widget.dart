@@ -102,7 +102,8 @@ class _LoginFormState extends State<LoginForm> {
                     name: "United States", dial_code: "+1", code: "US"),
                 betweenPadding: 15,
                 onInputChanged: (number) {
-                final fullNumber = '${number.dial_code} ${number.number}';
+                var fullNumber = '${number.dial_code} ${number.number}';
+                fullNumber = fullNumber.replaceAll(' ', '');
                 controller.phoneNumber.text = fullNumber;
                 print(fullNumber);
                 },

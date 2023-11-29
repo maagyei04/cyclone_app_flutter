@@ -245,6 +245,12 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                     );
                     Get.to(() => const OTPScreen());
                     -- */
+                    if (controller.email.text.isNotEmpty &&
+                        controller.password.text.isNotEmpty &&
+                        controller.firstName.text.isNotEmpty &&
+                        controller.lastName.text.isNotEmpty &&
+                        controller.phoneNumber.text.isNotEmpty
+                      ) {
 
                     final user = UserModel(
                       email: controller.email.text.trim(),
@@ -257,8 +263,18 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                     );
 
                     SignUpController.instance.createUser(user);
+                  } else {
+                      // Handle case where not all fields are filled
+                    Get.snackbar(
+                      "Error",
+                      "Please fill all the fields",
+                      snackPosition: SnackPosition.TOP,
+                      backgroundColor: Colors.redAccent.withOpacity(0.3),
+                      colorText: Colors.red,
+                      duration: const Duration(seconds: 7),
+                    );
                   }
-                },
+                }},
                 child: Text(tSignup.toUpperCase()),
               ),
             )

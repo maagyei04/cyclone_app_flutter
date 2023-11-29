@@ -10,7 +10,7 @@ import 'package:cyclone/src/features/core/models/request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FormWidget extends StatefulWidget {
+class FormWidget extends StatefulWidget { 
   const FormWidget({
     super.key,
   });
@@ -105,7 +105,14 @@ class _FormWidgetState extends State<FormWidget> {
                 child: ElevatedButton(
                   onPressed: () {
                     if(formKey.currentState!.validate()) {
-      
+                      if (controller.name.text.isNotEmpty &&
+                        controller.brand.text.isNotEmpty &&
+                        controller.year.text.isNotEmpty &&
+                        controller.location.text.isNotEmpty &&
+                        controller.description.text.isNotEmpty
+                        ) {
+
+
                       final user = RequestModel(
                         userid: controller2.getID(),
                         name: controller.name.text.trim(), 
@@ -117,16 +124,27 @@ class _FormWidgetState extends State<FormWidget> {
 
                       RequestController.instance.addRequest(user);
 
+                    } else {
+        // Handle case where not all fields are filled
+                      Get.snackbar(
+                        "Error",
+                        "Please fill all the fields",
+                        snackPosition: SnackPosition.TOP,
+                        backgroundColor: Colors.redAccent.withOpacity(0.3),
+                        colorText: Colors.red,
+                        duration: const Duration(seconds: 7),
+                      );
                     }
+                  }
                   },
                   child: const Text(tRequestScreenButtonText),
-                ),
+
+                )
               )
             ],
           )
         );
             } else if (snapshot.hasError) {
-                                  // ignore: avoid_print
                                   print(snapshot.error.toString());
                 return Center(
                   child: Text(snapshot.error.toString()),

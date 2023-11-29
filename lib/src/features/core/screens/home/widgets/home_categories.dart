@@ -49,7 +49,7 @@ class THomeCategories extends StatelessWidget {
               }
         } else {
               return const Center(
-                child: Text('Not Available...')
+                child: Text('Please wait...', style: TextStyle(color: Colors.white),)
               );
           }
       },

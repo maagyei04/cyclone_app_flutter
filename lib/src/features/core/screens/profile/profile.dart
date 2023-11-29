@@ -21,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
         title: Text("Profile", style: Theme.of(context).textTheme.displayLarge),
       ),
       body: Container(
-        padding: const EdgeInsets.all(tDefaultSize),
+        padding: const EdgeInsets.all(tDefaultSize - 15),
         child: FutureBuilder(
           future: controller.getUserData(),
           builder: (context, snapshot) {
@@ -31,71 +31,216 @@ class ProfileScreen extends StatelessWidget {
                 return 
 
                 
-                Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                  
-                        Container(
-                          width: 335, // Width of the main container
-                          height: 82, // Height of the main container
-                          decoration: BoxDecoration(
-                            color: Colors.transparent, // Background color of the main container
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              color: const Color.fromARGB(255, 125, 125, 125),
-                              width: 1,
-                            ), // Rounded corners
-                          ),
-                          child: const OverflowBox(
-                            maxHeight: 180,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  top: 0, // Raise the circular image beyond the container
-                                  left: -200,
-                                  right: 0,
-                                  child: Center(
-                                    child: CircleAvatar(
-                                      backgroundImage: AssetImage(tOnBoardingImage1), // Add your image here
-                                      radius: 35, // Radius of the circular image
-                                    ),
-                                  ),
-                                ),
-                                
-                              ],
+                SingleChildScrollView(
+                  child: Column(
+                    
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                    
+                          Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent, // Background color of the main container
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: const Color.fromARGB(255, 125, 125, 125),
+                                width: 1,
+                              ), // Rounded corners
                             ),
-                          ),
-                          
-                        ),
-                              Center(child: Text("Yet To Build The Profile Screen, #Michan", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge,)),
-                              Column(
+                            child: IntrinsicHeight(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(userData.firstName, style: Theme.of(context).textTheme.bodyMedium,),
-                                    const SizedBox(width: 10.0,),
-                                    Text(userData.lastName, style: Theme.of(context).textTheme.bodyMedium,),
-                                  ],
-                                ),
-                                const SizedBox(height: tFormHeight,),
-                                Text(userData.email, style: Theme.of(context).textTheme.bodyMedium,),
-                                                                const SizedBox(height: tFormHeight,),
-                                Text(userData.school, style: Theme.of(context).textTheme.bodyMedium,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const CircleAvatar(
+                                        backgroundImage: AssetImage(tOnBoardingImage1), // Add your image here
+                                        radius: 30, // Radius of the circular image
+                                      ),
+                                      IconButton(onPressed: () {}, icon: const Icon(Icons.edit))
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10.0,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(userData.firstName, style: Theme.of(context).textTheme.headlineLarge,),
+                                      const SizedBox(width: 10.0,),
+                                      Text(userData.lastName, style: Theme.of(context).textTheme.headlineLarge,),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5.0,),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.home),
+                                      Text(userData.school, style: Theme.of(context).textTheme.bodySmall,),
+                                    ],
+                                  )
                                 ],
                               ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    AuthenticationRepository.instance.logout();
-                                  },
-                                child: const Text("Logout"),
-                                ),
-                              )
-                            ],
-                          );
+                            ),
+                            
+                          ),
+                  const SizedBox(height: 20.0,),
+                
+                  Text('My Account', style: Theme.of(context).textTheme.displayLarge,),
+
+                  const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Personal Details', style: Theme.of(context).textTheme.displayMedium,),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ),
+                
+                  const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('My Donations', style: Theme.of(context).textTheme.displayMedium,),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ),
+                
+                  const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('My Requests', style: Theme.of(context).textTheme.displayMedium,),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ),                
+                
+                  const SizedBox(height: 20.0,),
+                
+                
+                
+                  Text('App Support', style: Theme.of(context).textTheme.displayLarge,),
+                
+                              const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Help & Support', style: Theme.of(context).textTheme.displayMedium,),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ), 
+                
+                              const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.grey,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Submit Feedback', style: Theme.of(context).textTheme.displayMedium,),
+                        const Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ), 
+                
+                              const SizedBox(height: 20.0,),
+                  GestureDetector(
+                    onTap: () {
+                      AuthenticationRepository.instance.logout();
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        border:Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                        )
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Log Out', style: Theme.of(context).textTheme.displayMedium,),
+                          const Icon(Icons.arrow_forward_ios_rounded)
+                        ],
+                      ),
+                    ),
+                  ), 
+                
+                              const SizedBox(height: 10.0,),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(10.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border:Border.all(
+                        color: Colors.red,
+                        width: 1.0,
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Delete Account', style: Theme.of(context).textTheme.displayMedium,),
+                       const  Icon(Icons.arrow_forward_ios_rounded)
+                      ],
+                    ),
+                  ), 
+                
+                              ],
+                            ),
+                );
                           
               } else if (snapshot.hasError) {
                                   // ignore: avoid_print
