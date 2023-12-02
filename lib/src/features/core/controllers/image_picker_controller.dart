@@ -26,7 +26,7 @@ class ImagePickerController extends GetxController {
       final imageTmp = File(imagePick.path);
 
       image.value = imageTmp; 
-
+      print(image.value);
     } on PlatformException catch (e) {
       print("Error: $e");
       print(image.value);
@@ -48,7 +48,7 @@ class ImagePickerController extends GetxController {
       final imageTmp = File(imagePick.path);
 
       image.value = imageTmp; 
-
+      print(image.value);
     } on PlatformException catch (e) {
       print("Error: $e");
       print(image.value);

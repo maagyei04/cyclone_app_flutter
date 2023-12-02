@@ -39,122 +39,111 @@ class ImageUploadScreen extends StatelessWidget {
               if (snapshot.hasData) {
                 UserModel user = snapshot.data as UserModel;
                 return 
-                  Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Text(tImageUploadTitle, style: Theme.of(context).textTheme.displayLarge,),
-                  const SizedBox(height: tFormHeight - 20,),
-                  Text(tImageUploadSubTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,),
-                  const SizedBox(height: tFormHeight - 10,),
-                ],
-              ),
-        
-              OutlinedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  side:  const BorderSide(color: tPrimaryColor),
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(20.0),
-                  foregroundColor: const Color.fromARGB(255, 4, 2, 2), 
-                ),
-                child: Obx(
-                  () => Container(
+                  SingleChildScrollView(
+                    child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Column(
+
+                                  children: [
+                    Text(tImageUploadTitle, style: Theme.of(context).textTheme.displayLarge,),
+                    const SizedBox(height: tFormHeight - 20,),
+                    Text(tImageUploadSubTitle, textAlign: TextAlign.center, style: Theme.of(context).textTheme.displayMedium,),
+                    const SizedBox(height: tFormHeight + 15,),
+                                  ],
+                                ),
+                          
+                                OutlinedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                    side:  const BorderSide(color: tPrimaryColor),
+                    shape: const CircleBorder(),
                     padding: const EdgeInsets.all(20.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.grey, shape: BoxShape.circle
+                    foregroundColor: const Color.fromARGB(255, 4, 2, 2), 
+                                  ),
+                                  child: Obx(
+                    () => CircleAvatar(
+                      backgroundColor: tPrimaryColor,
+                      radius: 120.0,
+                      backgroundImage: controller.image.value.path != ''
+                          ? NetworkImage(controller.image.value.path)
+                          : null,
+                      child: controller.image.value.path == ''
+                          ? const Icon(Icons.camera_alt_rounded)
+                          : null,
                     ),
-                    child: kIsWeb ?
-                    controller.image.value.path == ''
-                      ? const Icon(Icons.camera_alt_rounded)
-                      :  CircleAvatar(
-                        child: Image.network(
-                            controller.image.value.path
-                          ),
-                      ) 
-
-                        :
-
-                    controller.image.value.path == ''
-                      ? const Icon(Icons.camera_alt_rounded)
-                      : CircleAvatar(
-                        child: Image.file(
-                          File(controller.image.value.path)
-                        ),
-                      ), 
-
-                  ),
-                ),
-              ),
-        
-              const SizedBox(height: tFormHeight - 10,),
-        
-              Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
+                  
+                                  ),
+                                ),
+                          
+                                const SizedBox(height: tFormHeight + 20,),
+                          
+                                Column(
+                                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          controller.pickImageCamera();
+                        },
+                        icon: const Icon(Icons.camera_alt_rounded), 
+                        label: Text(tImageUploadCameraText, style: Theme.of(context).textTheme.displayMedium,),
+                      ),
+                    ),
+                          
+                    const SizedBox(height: tFormHeight - 10,),
+                          
+                          
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          controller.pickImage();
+                        },
+                        icon: const Icon(Icons.image_rounded), 
+                        label: Text(tImageUploadGalleryText, style: Theme.of(context).textTheme.displayMedium,),
+                      ),
+                    ),
+                                  ],
+                                ),
+                          
+                                const SizedBox(height: tFormHeight + 20,),
+                          
+                                Row(
+                                  children: [
+                    Expanded(
+                      child: OutlinedButton(
                       onPressed: () {
-                        controller.pickImageCamera();
-                      },
-                      icon: const Icon(Icons.camera_alt_rounded), 
-                      label: Text(tImageUploadCameraText, style: Theme.of(context).textTheme.displayMedium,),
-                    ),
-                  ),
-        
-                  const SizedBox(height: tFormHeight - 10,),
-        
-        
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      onPressed: () {
-                        controller.pickImage();
-                      },
-                      icon: const Icon(Icons.image_rounded), 
-                      label: Text(tImageUploadGalleryText, style: Theme.of(context).textTheme.displayMedium,),
-                    ),
-                  ),
-                ],
-              ),
-        
-              const SizedBox(height: tFormHeight - 10,),
-        
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                    onPressed: () {
-                      Get.offAll(() => const NavigationMenu());
-                    },
-                     child: const Text(tSkip,),
-                    ),
-                  ),
-                  const SizedBox(width: tFormHeight -20,),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        String imageUrl = await controller3.uploadProfileImage();
-        
-                        final userData = ProfileImageModel (
-                          id: user.id,
-                          picture: imageUrl,
-                        );
-        
-                        await controller2.uploadProfileImage(userData);
-                        
                         Get.offAll(() => const NavigationMenu());
-                      }, 
-                      child: const Text(tContinue),
+                      },
+                       child: const Text(tSkip,),
+                      ),
                     ),
-                  )
-                ],
-              )
-        
-            ],
-          );
+                    const SizedBox(width: tFormHeight -20,),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          String imageUrl = await controller3.uploadProfileImage();
+                          
+                          final userData = ProfileImageModel (
+                            id: user.id,
+                            picture: imageUrl,
+                          );
+                          
+                          await controller2.uploadProfileImage(userData);
+                          
+                          Get.offAll(() => const NavigationMenu());
+                        }, 
+                        child: const Text(tContinue),
+                      ),
+                    )
+                                  ],
+                                )
+                          
+                              ],
+                            ),
+                  );
               } else if (snapshot.hasError) {
                 // ignore: avoid_print
                 print(snapshot.error.toString());

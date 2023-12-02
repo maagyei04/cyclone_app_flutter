@@ -55,8 +55,9 @@ class ProfileScreen extends StatelessWidget {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const CircleAvatar(
-                                        backgroundImage: AssetImage(tOnBoardingImage1), // Add your image here
+                                      CircleAvatar(
+                                        backgroundImage:NetworkImage(userData.picture),
+                                        backgroundColor: Colors.green.shade300, // Add your image here
                                         radius: 30, // Radius of the circular image
                                       ),
                                       IconButton(onPressed: () {}, icon: const Icon(Icons.edit))

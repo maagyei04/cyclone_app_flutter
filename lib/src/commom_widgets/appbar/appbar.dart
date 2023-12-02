@@ -1,5 +1,6 @@
 
 
+import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
   }); 
 
     final Widget? title;
-    final String? image;
+    final NetworkImage? image;
     final bool showBackArrow;
     final IconData? leadingIcon;
     final List<Widget>? actions;
@@ -28,7 +29,7 @@ class TAppBar extends StatelessWidget implements PreferredSizeWidget {
     child: AppBar(
       automaticallyImplyLeading: false,
       leading: CircleAvatar(
-        backgroundImage:AssetImage(image!),
+        backgroundImage: image, backgroundColor: Colors.green.shade300,
       ),
       title: title,
       actions: actions,

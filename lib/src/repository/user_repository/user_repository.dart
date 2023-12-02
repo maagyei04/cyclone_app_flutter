@@ -12,6 +12,7 @@ import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math';
 
 class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
@@ -102,6 +103,32 @@ class UserRepository extends GetxController {
     return categories;
   }
 
+  Future<List<PostModel>> allPosts() async {
+    final snapshot = await _db.collection("Posts").get();
+    final userData = snapshot.docs.map((e) => PostModel.fromSnapshot(e)).toList();
+    
+    for (QueryDocumentSnapshot requestDoc in snapshot.docs) {
+      String userId = requestDoc['UserId'];
+
+      DocumentSnapshot userSnapshot = await _db.collection("Users").doc(userId).get();
+
+      if (userSnapshot.exists) {
+       Map<String, dynamic> userData1 = userSnapshot.data() as Map<String, dynamic>;
+
+        print('user info for UserID $userId: $userData1');
+
+        String userName = userData1["FirstName"] ?? 'Unknown';
+
+        print('User name: $userName'); 
+      } else {
+        print('User with UserID $userId does not exist.');
+      }
+
+      var postData = requestDoc.data();
+      print('Post data: $postData');
+    }
+    return userData;
+  }
 
 
   Future<List<RequestModel>> allRequests() async {
@@ -199,7 +226,7 @@ class UserRepository extends GetxController {
   }
 
   Future<String> uploadProfileImage() async {
-    String fileName = DateTime.now().microsecondsSinceEpoch.toString();
+    String fileName = '${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(10000)}.png';
 
     try {
       Reference ref = _storage.ref().child('profileImage/$fileName');
@@ -216,7 +243,8 @@ UploadTask uploadTask = ref.putFile(controller.image.value);
   }
 
   Future<String> uploadPostImage() async {
-    String fileName = DateTime.now().toString();
+    String fileName = '${DateTime.now().millisecondsSinceEpoch}_${Random().nextInt(10000)}.png';
+
 
     try {
       Reference ref = _storage.ref().child('postImages/$fileName');

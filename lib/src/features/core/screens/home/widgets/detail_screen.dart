@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,12 @@ class DetailScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                 Image(image: const AssetImage(tOnBoardingImage2), width: size.width, height: size.height * 0.45, fit: BoxFit.fill,),
+                                            CachedNetworkImage(
+                                              imageUrl: data.photo,
+                                              placeholder: (context, url) => const CircularProgressIndicator(),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                                              width: size.width, height: size.height * 0.45, fit: BoxFit.fill,
+                                            ),                 
                 Positioned(
                   top: 20, // Adjust top padding as needed
                   left: 10, // Adjust left padding as needed

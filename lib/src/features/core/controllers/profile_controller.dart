@@ -4,6 +4,7 @@ import 'package:cyclone/src/features/authentication/models/school_model.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:cyclone/src/features/core/models/category_model.dart';
 import 'package:cyclone/src/features/core/models/image_picker_model.dart';
+import 'package:cyclone/src/features/core/models/post_model.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
 import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:cyclone/src/repository/user_repository/user_repository.dart';
@@ -47,6 +48,8 @@ class ProfileController extends GetxController {
   }
 
   Future<List<RequestModel>> getAllRequests() async => _userRepo.allRequests();
+
+  Future<List<PostModel>> getAllPosts() async => _userRepo.allPosts();
 
   Future<List<dynamic>> getAllCategories() async =>  _userRepo.allCategories();
 

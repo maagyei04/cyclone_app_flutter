@@ -171,7 +171,7 @@ class _FormWidgetState extends State<FormWidget> {
                       controller3.image.value.path == ''
                         ? const Icon(Icons.add_a_photo_rounded)
                         :  Image.network(
-                            controller3.image.value.path, fit: BoxFit.fitHeight,
+                            controller3.image.value.path, fit: BoxFit.cover,
                           ) 
                               
                           :
@@ -179,7 +179,7 @@ class _FormWidgetState extends State<FormWidget> {
                       controller3.image.value.path == ''
                         ? const Icon(Icons.add_a_photo_rounded)
                         : Image.file(
-                          File(controller3.image.value.path), fit: BoxFit.fitHeight,
+                          File(controller3.image.value.path), fit: BoxFit.cover,
                         ),
                   ),
                 ),
