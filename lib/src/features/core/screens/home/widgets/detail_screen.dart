@@ -12,6 +12,10 @@ class DetailScreen extends StatelessWidget {
     final data = Get.arguments;
     var size = MediaQuery.of(context).size;
 
+                Map<String, dynamic>? combinedData = data;
+
+                Map<String, dynamic>? userData = combinedData?['userData'];
+                Map<String, dynamic>? postData = combinedData?['postData']; 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -19,7 +23,7 @@ class DetailScreen extends StatelessWidget {
             Stack(
               children: [
                                             CachedNetworkImage(
-                                              imageUrl: data.photo,
+                                              imageUrl: postData?['Photo'],
                                               placeholder: (context, url) => const CircularProgressIndicator(),
                                               errorWidget: (context, url, error) => const Icon(Icons.error),
                                               width: size.width, height: size.height * 0.45, fit: BoxFit.fill,
@@ -51,16 +55,22 @@ class DetailScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 20.0,
-                            backgroundImage: AssetImage(tOnBoardingImage2), // Replace with your image
+                            backgroundImage: NetworkImage(userData?['Picture']), // Replace with your image
                             ),
                           const SizedBox(width: 10.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(data.name, style: Theme.of(context).textTheme.labelMedium,),
-                              Text(data.location, style: Theme.of(context).textTheme.bodySmall,),
+                              Row(
+                                children: [
+                                  Text(userData?['FirstName'], style: Theme.of(context).textTheme.labelMedium,),
+                                    const SizedBox(width: 5.0,),
+                                  Text(userData?['LastName'], style: Theme.of(context).textTheme.labelMedium,),
+                                ],
+                              ),
+                              Text(userData?['School'], style: Theme.of(context).textTheme.bodySmall,),
                             ],
                           ),
       
@@ -79,7 +89,7 @@ class DetailScreen extends StatelessWidget {
                 Text('Product Details', style: Theme.of(context).textTheme.headlineLarge,),
                 const Divider(color: Colors.grey,),     
                                    const SizedBox(height: 5.0,),
-                Text(data.name, style: Theme.of(context).textTheme.headlineMedium,),
+                Text(postData?['Name'] ?? 'test', style: Theme.of(context).textTheme.bodyMedium,),
                                    const SizedBox(height: 10.0,),
                                                   Row(
                                                     children: [
@@ -89,7 +99,7 @@ class DetailScreen extends StatelessWidget {
                                                           borderRadius: BorderRadius.circular(20.0),
                                                         ),
                                                         padding: const EdgeInsets.all(5.0),
-                                                        child: Text(data.brand, 
+                                                        child: Text(postData?['Brand'], 
                                                         style: Theme.of(context).textTheme.displaySmall,
                                                         )),
                                                               
@@ -101,13 +111,13 @@ class DetailScreen extends StatelessWidget {
                                                           borderRadius: BorderRadius.circular(20.0),
                                                         ),                                                  
                                                         padding: const EdgeInsets.all(5.0),
-                                                        child: Text(data.year, 
+                                                        child: Text(postData?['Year'], 
                                                         style: Theme.of(context).textTheme.displaySmall,
                                                         )),
                                                     ],
                                                   ),
                                    const SizedBox(height: 10.0,),
-                                   Text(data.description, style: Theme.of(context).textTheme.displaySmall,),
+                                   Text(postData?['Description'], style: Theme.of(context).textTheme.displayMedium,),
                                                                                
            
                    ],

@@ -21,6 +21,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+ bool _isPasswordVisible = false;
 
   /* --
   String initialCountry = 'US';
@@ -48,8 +49,9 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /* --
+
             TextFormField(
+              style: const TextStyle(fontSize: 15.0),
               controller: controller.email,
               decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.person_outline_outlined),
@@ -64,21 +66,28 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(height: tFormHeight - 20,),
             
             TextFormField(
+              style: const TextStyle(fontSize: 15.0),
+              obscureText: !_isPasswordVisible,
               controller: controller.password,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.fingerprint),
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.fingerprint),
                 labelText: tPassword,
                 hintText: tPassword,
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8)),
                 ),
                 suffixIcon: IconButton(
-                  onPressed: null,
-                  icon: Icon(Icons.remove_red_eye_sharp),
-                ),
+                      icon: _isPasswordVisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                      onPressed: () {
+                        setState(() {
+                          _isPasswordVisible = !_isPasswordVisible;
+                        });             
+                })
               ),
+              
             ),
 
+            /* --
             TextFormField(
               controller: controller.phoneNumber,
               decoration: const InputDecoration(
@@ -93,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
 
             const SizedBox(height: tFormHeight - 20,),
 
--- */
+
             InternationalPhoneNumberInput(
                 height: 60,
                 inputFormatters: const [],
@@ -164,7 +173,7 @@ class _LoginFormState extends State<LoginForm> {
                       fontWeight: FontWeight.w400),
                 ),
             ),
-                            
+                         -- */   
 /* --
             InternationalPhoneNumberInput(
               onInputChanged: (PhoneNumber number) {
@@ -224,8 +233,9 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   -- */
                   if(formKey.currentState!.validate()) {
-                    LoginController.instance.loginUserWithPhoneNumber(
-                      controller.phoneNumber.text.trim(),
+                    LoginController.instance.loginUser(
+                      controller.email.text.trim(),
+                      controller.password.text.trim(),
                     );
                   }                       
                 }, 

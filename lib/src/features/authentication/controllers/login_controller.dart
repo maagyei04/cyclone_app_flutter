@@ -16,8 +16,21 @@ class LoginController extends GetxController {
   final phoneNumber = TextEditingController();
 
   //Call This Function Design & It Will Do The Rest
-  void loginUser(String email, String password) {
-     AuthenticationRepository.instance.loginUserWithEmailAndPassword(email, password);
+  void loginUser(String email, String password) async {
+    try {
+      final auth = AuthenticationRepository.instance;
+      await auth.loginUserWithEmailAndPassword(email, password);
+      auth.setInitialScreen(auth.user);
+    } catch (e) {
+       Get.snackbar(
+        'Oh Snap!!',
+        e.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(0.3),
+        colorText: Colors.red,
+        duration: const Duration(seconds: 5),
+      );
+    }
   }
 
   void loginUserWithPhoneNumber(String phoneNumber) async {

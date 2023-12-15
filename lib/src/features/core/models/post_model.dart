@@ -10,6 +10,7 @@ class PostModel {
   final String year;
   final String location;
   final String photo;
+  final String category;
   final DateTime? timestamp;
 
 
@@ -23,6 +24,7 @@ class PostModel {
     required this.year, 
     required this.location,
     required this.photo,
+    required this.category,
     this.id,
     this.timestamp,
 
@@ -37,6 +39,7 @@ class PostModel {
       'Year': year,
       'Location': location,
       'Photo': photo,
+      'Category': category,
       'TimeStamp': FieldValue.serverTimestamp(),
     };
   }
@@ -52,6 +55,7 @@ class PostModel {
       brand: data?['Brand'], 
       year: data?['Year'], 
       location: data?['Location'], 
+      category: data?['Category'],
       photo: data?['Photo'],
       timestamp: (data?['TimeStamp'] as Timestamp).toDate(),
     );

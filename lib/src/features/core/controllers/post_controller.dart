@@ -14,6 +14,7 @@ class PostController extends GetxController {
   final brand = TextEditingController();
   final year = TextEditingController();
   final location = TextEditingController();
+  final category = TextEditingController();
 
   final userRepo = Get.put(UserRepository());
 

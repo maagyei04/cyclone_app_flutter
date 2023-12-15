@@ -163,6 +163,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
               children: [
                 Expanded(
                   child: TextFormField(
+                    style: const TextStyle(fontSize: 15.0),
                     controller: controller.firstName,
                     decoration: const InputDecoration(
                       label: Text(tFirstName),
@@ -173,6 +174,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                 const SizedBox(width: tFormHeight - 20,),
                 Expanded(
                   child: TextFormField(
+                    style: const TextStyle(fontSize: 15.0),
                     controller: controller.lastName,
                     decoration: const InputDecoration(
                       label: Text(tLastName),
@@ -196,6 +198,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
             -- */
                       
             TextFormField(
+              style: const TextStyle(fontSize: 15.0),
               controller: controller.email,
               decoration: const InputDecoration(
               label:Text(tEmail),
@@ -207,6 +210,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
             const SizedBox(height: tFormHeight - 20,),
             
             TextFormField(
+              style: const TextStyle(fontSize: 15.0),
               obscureText: !_isPasswordVisible,
               controller: controller.password,
               decoration: InputDecoration(
@@ -262,7 +266,7 @@ class _SignUpFormWidgetState extends State<SignUpFormWidget> {
                       picture: "Default...",
                     );
 
-                    SignUpController.instance.createUser(user);
+                    SignUpController.instance.registerUser(user);
                   } else {
                       // Handle case where not all fields are filled
                     Get.snackbar(

@@ -1,8 +1,11 @@
 import 'package:cyclone/navigation_menu.dart';
+import 'package:cyclone/src/features/authentication/screens/login/login_screen.dart';
+import 'package:cyclone/src/features/authentication/screens/mail_verification/mail_verification.dart';
 import 'package:cyclone/src/features/authentication/screens/on_boarding/on_boarding_screen.dart';
 import 'package:cyclone/src/features/authentication/screens/welcome/welcome_screen.dart';
 import 'package:cyclone/src/features/core/screens/profile/profile.dart';
 import 'package:cyclone/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
+import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,23 +19,35 @@ class AuthenticationRepository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationId = ''.obs;
 
+  User? get user => firebaseUser.value;
+
+  String get getUserID => user?.uid ?? '';
+
+  String get getUserEmail => user?.email ?? '';
+
+  String get getUserPhone => user?.phoneNumber ?? '';
+
+ DateTime? get getUserDateJoined => user?.metadata.creationTime;
+ 
+
   @override
   void onReady() {
-    Future.delayed(const Duration(seconds: 6));
+    Future.delayed(const Duration(seconds: 3));
     firebaseUser = Rx<User?>(_auth.currentUser);
     firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    setInitialScreen(firebaseUser.value);
+    //ever(firebaseUser, _setInitialScreen);
   }
 
 
-  _setInitialScreen(User? user) {
-    user == null ? Get.offAll(() => const OnBoardingScreen()) : Get.offAll(() => const NavigationMenu());
+  setInitialScreen(User? user) {
+    user == null ? Get.offAll(() => const OnBoardingScreen()) 
+    : user.emailVerified 
+      ? Get.offAll(() => const NavigationMenu()) 
+      : Get.offAll(() => const MailVerificationScreen());
   }
 
-  String? getUserId() {
-  User? user = _auth.currentUser;
-  return user?.uid; // Returns the UID if the user is logged in, else returns null
-  }
+  /* -------------- Phone Authentication --------------- */
 
   Future<void> phoneAuthentication(String phoneNumber) async {
     await _auth.verifyPhoneNumber(
@@ -47,7 +62,7 @@ class AuthenticationRepository extends GetxController {
       codeAutoRetrievalTimeout: ((verificationId) {
         this.verificationId.value = verificationId;
       }),
-      verificationFailed: (e) {
+      verificationFailed: (e) async{
         if (e.code == 'invalid-phone-number') {
           Get.snackbar(
             "Error",
@@ -56,7 +71,9 @@ class AuthenticationRepository extends GetxController {
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red,
             duration: const Duration(seconds: 5),
-          );          
+          );    
+          await UserRepository.instance.deleteUserByPhoneNumber(phoneNumber);
+      
         } else {
           Get.snackbar(
             "Error",
@@ -65,7 +82,9 @@ class AuthenticationRepository extends GetxController {
             backgroundColor: Colors.redAccent.withOpacity(0.1),
             colorText: Colors.red,
             duration: const Duration(seconds: 5),
-          );           
+          );  
+          await UserRepository.instance.deleteUserByPhoneNumber(phoneNumber);
+         
         }
       },
 
@@ -104,6 +123,9 @@ class AuthenticationRepository extends GetxController {
     
   }
 
+
+  /* ------------- Email Authentication ---------------- */
+
   Future<void> createUserWithEmailAndPassword(String email, String password) async {
     try { 
      await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -123,11 +145,34 @@ class AuthenticationRepository extends GetxController {
   Future<void> loginUserWithEmailAndPassword(String email, String password) async {
     try { 
      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    firebaseUser.value != null ? Get.offAll(() => const ProfileScreen()) : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException {
       //login with email and password logic
     }  catch (_) {}
   }
 
-  Future<void> logout() async => await _auth.signOut();
+  Future<void> sendEmailVerification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      final ex = SignUpWithEmailAndpasswordFailure.code(e.code);
+      throw ex.message;
+    } catch (_) {
+      const ex = SignUpWithEmailAndpasswordFailure();
+      throw ex.message;
+    }
+  }
+  /* ------------------- ./end Auth ------------------ */
+
+  Future<void> logout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => const WelcomeScreen());
+    } on FirebaseAuthException catch (e) {
+      throw e.message!;
+    } on FormatException catch (e) {
+      throw e.message;
+    } catch (e) {
+      throw 'Unable to logout. Try again';
+    }
+  }
 }

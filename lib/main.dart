@@ -12,7 +12,6 @@ void main() {
     DefaultFirebaseOptions.currentPlatform, 
   ).then((value) => Get.put(AuthenticationRepository()));
   runApp(const MainApp());
-
 }
 
 class MainApp extends StatelessWidget { 

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_cast
+
 import 'dart:io';
 
 import 'package:cyclone/navigation_menu.dart';
@@ -65,10 +67,12 @@ class ImageUploadScreen extends StatelessWidget {
                                   child: Obx(
                     () => CircleAvatar(
                       backgroundColor: tPrimaryColor,
-                      radius: 120.0,
-                      backgroundImage: controller.image.value.path != ''
-                          ? NetworkImage(controller.image.value.path)
-                          : null,
+                      radius: 100.0,
+                      backgroundImage: controller.image.value.path.isNotEmpty
+                        ? (kIsWeb
+                            ? NetworkImage(controller.image.value.path) as ImageProvider<Object>?
+                            : FileImage(File(controller.image.value.path)) as ImageProvider<Object>?)
+                        : null,
                       child: controller.image.value.path == ''
                           ? const Icon(Icons.camera_alt_rounded)
                           : null,

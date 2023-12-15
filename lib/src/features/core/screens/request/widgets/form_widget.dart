@@ -1,6 +1,8 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cyclone/navigation_menu.dart';
+import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/sizes.dart';
 import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
@@ -21,10 +23,29 @@ class FormWidget extends StatefulWidget {
 
 class _FormWidgetState extends State<FormWidget> {
 
+  late Future<List<dynamic>> _categoryListFuture;
+  List<dynamic> _selectedVal = [];
+
+ final NavigationController navigationController = Get.find();
+
  final controller = Get.put(RequestController());
  final controller2 = Get.put(ProfileController());
 
+  @override
+  void initState() {
+    super.initState();
+    _initializeCategoryList();
+    controller.category.text = _selectedVal.toString();
+  }
 
+  Future<void> _initializeCategoryList() async {
+    _categoryListFuture = ProfileController.instance.getAllCategories();
+    final categories = await _categoryListFuture;
+    setState(() {
+      _selectedVal = categories;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -48,6 +69,7 @@ class _FormWidgetState extends State<FormWidget> {
             
             children: [
               TextFormField(
+                style: const TextStyle(fontSize: 15.0),
                 controller: controller.name,
                 decoration: const InputDecoration(
                   label: Text(tName),
@@ -57,6 +79,7 @@ class _FormWidgetState extends State<FormWidget> {
               const SizedBox(height: tFormHeight - 20,),
       
               TextFormField(
+                style: const TextStyle(fontSize: 15.0),
                 controller: controller.brand,
                 decoration: const InputDecoration(
                 label: Text(tBrand),
@@ -68,6 +91,7 @@ class _FormWidgetState extends State<FormWidget> {
       
       
               TextFormField(
+                style: const TextStyle(fontSize: 15.0),
                 controller: controller.year,
                 decoration: const InputDecoration(
                 label:Text(tYear),
@@ -79,6 +103,7 @@ class _FormWidgetState extends State<FormWidget> {
       
       
               TextFormField(
+                style: const TextStyle(fontSize: 15.0),
                 controller: controller.location,
                 decoration: const InputDecoration(
                 label:Text(tLocation),
@@ -88,8 +113,35 @@ class _FormWidgetState extends State<FormWidget> {
               
               const SizedBox(height: tFormHeight - 20,),
       
+                        DropdownButtonFormField(
+                          value: _selectedVal.isNotEmpty ? _selectedVal[0] : _selectedVal[0],
+                          items: _selectedVal.map((e) {
+                            return DropdownMenuItem(
+                              value: e,
+                              child: Text(e.toString()),
+                            );
+                          }).toList(),
+                          onChanged: (val) {
+                            setState(() {
+                              _selectedVal =[val!];
+                              controller.category.text =  val.toString();
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: tPrimaryColor,
+                          ),
+                          decoration: const InputDecoration(
+                            labelText: "Select Category", 
+                            border: OutlineInputBorder(),
+                          ),
+                        ),      
+
+              const SizedBox(height: tFormHeight - 20,),
+
       
               TextFormField(
+                style: const TextStyle(fontSize: 15.0),
                 controller: controller.description,
                 maxLines: 7,
                 decoration: const InputDecoration(
@@ -109,7 +161,8 @@ class _FormWidgetState extends State<FormWidget> {
                         controller.brand.text.isNotEmpty &&
                         controller.year.text.isNotEmpty &&
                         controller.location.text.isNotEmpty &&
-                        controller.description.text.isNotEmpty
+                        controller.description.text.isNotEmpty &&
+                        controller.category.text.isNotEmpty
                         ) {
 
 
@@ -120,9 +173,21 @@ class _FormWidgetState extends State<FormWidget> {
                         brand: controller.brand.text.trim(), 
                         year: controller.year.text.trim(), 
                         location: controller.location.text.trim(), 
+                        category: controller.category.text.trim(),
                       );
 
                       RequestController.instance.addRequest(user);
+
+                              controller.name.clear();
+                              controller.brand.clear();
+                              controller.year.clear();
+                              controller.location.clear();
+                              controller.description.clear();
+                              controller.category.clear();
+
+                      Future.delayed(const Duration(seconds: 3), () {
+                        navigationController.selectedIndex.value = 0;
+                      });
 
                     } else {
         // Handle case where not all fields are filled

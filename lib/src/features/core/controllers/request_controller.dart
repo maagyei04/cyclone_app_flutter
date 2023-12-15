@@ -14,13 +14,13 @@ class RequestController extends GetxController {
   final brand = TextEditingController();
   final year = TextEditingController();
   final location = TextEditingController();
+  final category = TextEditingController();
 
   final userRepo = Get.put(UserRepository());
 
 
   addRequest(RequestModel user) async {
     await userRepo.addUserRequest(user);
-    Get.back();
   }
 
 }

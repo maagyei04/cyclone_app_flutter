@@ -7,7 +7,7 @@ const tSecondaryColor = Color(0xFF272727);
 const tAccentColor = Color(0xFF001BFF);
 
 
-const tWhiteColor = Colors.white;
+const tWhiteColor = Color.fromARGB(255, 255, 255, 255);
 const tDarkColor = Colors.black;
 
 

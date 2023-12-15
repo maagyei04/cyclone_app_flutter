@@ -10,6 +10,7 @@ const String tNext = "Next";
 const String tSkip = "Skip";
 const String tContinue = "Continue";
 const String tWelcome = "Welcome,";
+const String tBackToLogin = "Back To Login";
 
 
 // -- On-Boarding Text
@@ -83,7 +84,17 @@ const String tBrand = "Brand";
 const String tYear = "Year";
 const String tLocation = "Location";
 
-// -- Post Screen Image
+// -- Post Screen Text
 const String tPostScreenTitle = "Upload An Image";
 const String tPostScreenSubTitle = "Select the type of item you want to donate";
 
+// -- Email Verification Screen Text
+const String tEmailVTitle = "Verify your email address";
+const String tEmailVContent = "We have just sent email verification link to your email. Please chack email and click on that link to verify your email address.";
+const String tEmailVSubTitle = "If not auto-redirected after verification, click on the Continue button";
+const String tEmailVResend = "Resend E-mail Link";
+
+// -- Feedback Screen Text
+const String tFeedbackTitle = 'Message';
+const String tFeedbackSubTitle = 'Tell us more about your experience with the app. Report bugs and any activity that you didn\'t like from a user.';
+const String tSendMessage = 'Send Message';

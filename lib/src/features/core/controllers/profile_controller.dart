@@ -21,15 +21,16 @@ class ProfileController extends GetxController {
   final password = TextEditingController();
   final phoneNumber = TextEditingController();
   final school = TextEditingController();
+  final category = TextEditingController();
 
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
 
   getUserData() {
-    final phoneNumber = _authRepo.firebaseUser.value?.phoneNumber;
+    final email = _authRepo.firebaseUser.value?.email;
 
-    if (phoneNumber != null) {
-      return _userRepo.getUserDetails(phoneNumber);
+    if (email != null) {
+      return _userRepo.getUserDetails(email);
     } else {
       Get.snackbar('Error', 'Login to continue', duration: const Duration(seconds: 6));
     }
@@ -37,7 +38,7 @@ class ProfileController extends GetxController {
 
 
   getID() {
-    String? userID = _authRepo.getUserId();
+    String? userID = _authRepo.getUserID;
       // To get the user ID
     if (userID != null) {
       print("User ID: $userID");
@@ -47,9 +48,9 @@ class ProfileController extends GetxController {
     return userID;
   }
 
-  Future<List<RequestModel>> getAllRequests() async => _userRepo.allRequests();
+  Future<List<Map<String, dynamic>>> getAllRequests() async => _userRepo.allRequests();
 
-  Future<List<PostModel>> getAllPosts() async => _userRepo.allPosts();
+  Future<List<Map<String, dynamic>>> getAllPosts() async => _userRepo.allPosts();
 
   Future<List<dynamic>> getAllCategories() async =>  _userRepo.allCategories();
 
@@ -66,4 +67,5 @@ class ProfileController extends GetxController {
   uploadProfileImage(ProfileImageModel user) async {
     await _userRepo.saveProfileImage(user);
   }
+
 }

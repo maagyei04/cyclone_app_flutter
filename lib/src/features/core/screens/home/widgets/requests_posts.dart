@@ -24,19 +24,26 @@ class TRequestsPost extends StatelessWidget {
 
     return Container(
      padding: const EdgeInsets.all(10.0),
-      child: FutureBuilder<List<RequestModel>>(
+      child: FutureBuilder<List<Map<String, dynamic>>>(
   future: controller.getAllRequests(),
   builder: (context, snapshot1) {
-    return FutureBuilder<List<PostModel>>(
+    return FutureBuilder<List<Map<String, dynamic>>>(
       future: controller.getAllPosts(),
       builder: (context, snapshot2) {
         if (snapshot1.connectionState == ConnectionState.done &&
             snapshot2.connectionState == ConnectionState.done) {
           if (snapshot1.hasData && snapshot2.hasData) {
             // Merge the data from both snapshots in the desired order
+            print(snapshot1.data);
+            print(snapshot2.data);
             List<Widget> mergedList = [];
             for (int i = 0; i < snapshot1.data!.length; i++) {
-              mergedList.add(
+
+              Map<String, dynamic>? combinedData = snapshot1.data![i];
+
+            Map<String, dynamic>? userData = combinedData['userData'];
+            Map<String, dynamic>? requestData = combinedData['requestData'];              
+            mergedList.add(
                 Column(
                         children: [
                             Container(
@@ -58,16 +65,22 @@ class TRequestsPost extends StatelessWidget {
                                             children: [
                                               Row(
                                                 children: [
-                                                  const CircleAvatar(
+                                                  CircleAvatar(
                                                     radius: 20.0,
-                                                    backgroundImage: AssetImage(tOnBoardingImage2), // Replace with your image
+                                                    backgroundImage: NetworkImage(userData?['Picture']), // Replace with your image
                                                   ),
                                                   const SizedBox(width: 10.0),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(snapshot1.data![i].name, style: Theme.of(context).textTheme.labelMedium,),
-                                                      Text(snapshot1.data![i].location, style: Theme.of(context).textTheme.bodySmall,),
+                                                            Row(
+                                                              children: [
+                                                                Text(userData?['FirstName'] ?? 'test', style: Theme.of(context).textTheme.labelMedium,),
+                                                                  const SizedBox(width: 5.0,),
+                                                                Text(userData?['LastName'] ?? 'test', style: Theme.of(context).textTheme.labelMedium,),
+                                                              ]
+                                                            ),                                                      
+                                                            Text(requestData?["Location"] ?? 'test', style: Theme.of(context).textTheme.bodySmall,),
                                                     ],
                                                   ),
                                                 ],
@@ -77,7 +90,7 @@ class TRequestsPost extends StatelessWidget {
                                           ),
                                           const SizedBox(height: 12.0),
                                           Text(
-                                            snapshot1.data![i].description, 
+                                            requestData?['Description'] ?? 'test', 
                                             style: Theme.of(context).textTheme.labelMedium,
                                             softWrap: true,
                                           ),
@@ -93,7 +106,7 @@ class TRequestsPost extends StatelessWidget {
                                                       borderRadius: BorderRadius.circular(20.0),
                                                     ),
                                                     padding: const EdgeInsets.all(5.0),
-                                                    child: Text(snapshot1.data![i].brand, 
+                                                    child: Text(requestData?['Brand'] ?? 'test', 
                                                     style: Theme.of(context).textTheme.displaySmall,
                                                     )),
                                                           
@@ -105,7 +118,7 @@ class TRequestsPost extends StatelessWidget {
                                                       borderRadius: BorderRadius.circular(20.0),
                                                     ),                                                  
                                                     padding: const EdgeInsets.all(5.0),
-                                                    child: Text(snapshot1.data![i].year, 
+                                                    child: Text(requestData?['Year'] ?? 'test', 
                                                     style: Theme.of(context).textTheme.displaySmall,
                                                     )),
                                                 ],
@@ -129,6 +142,10 @@ class TRequestsPost extends StatelessWidget {
                       ),
               );
               if (i < snapshot2.data!.length) {
+                Map<String, dynamic>? combinedData = snapshot2.data![i];
+
+                Map<String, dynamic>? userData = combinedData['userData'];
+                Map<String, dynamic>? postData = combinedData['postData']; 
                 mergedList.add(
                   Column(
                     children: [
@@ -155,16 +172,22 @@ class TRequestsPost extends StatelessWidget {
                                                   children: [
                                                     Row(
                                                       children: [
-                                                        const CircleAvatar(
+                                                        CircleAvatar(
                                                           radius: 20.0,
-                                                          backgroundImage: AssetImage(tOnBoardingImage2), // Replace with your image
+                                                          backgroundImage: NetworkImage(userData?['Picture']), // Replace with your image
                                                         ),
                                                         const SizedBox(width: 10.0),
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Text(snapshot2.data![i].name, style: Theme.of(context).textTheme.labelMedium,),
-                                                            Text(snapshot2.data![i].location, style: Theme.of(context).textTheme.bodySmall,),
+                                                            Row( 
+                                                              children: [
+                                                                Text(userData?['FirstName'] ?? 'test', style: Theme.of(context).textTheme.labelMedium,),
+                                                                  const SizedBox(width: 5.0,),
+                                                                Text(userData?['LastName'] ?? 'test', style: Theme.of(context).textTheme.labelMedium,),
+                                                              ]
+                                                            ),
+                                                            Text(postData?['Location'] ?? 'test', style: Theme.of(context).textTheme.bodySmall,),
                                                           ],
                                                         ),
                                                       ],
@@ -175,14 +198,14 @@ class TRequestsPost extends StatelessWidget {
                                                 const SizedBox(height: 12.0),
                                                 
                                                 CachedNetworkImage(
-                                                  imageUrl: snapshot2.data![i].photo,
-                                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                                  imageUrl: postData?['Photo'] ?? 'test',
+                                                  placeholder: (context, url) => const CircularProgressIndicator(color: tPrimaryColor,),
                                                   errorWidget: (context, url, error) => const Icon(Icons.error),
                                                 ),
                               
                                                 const SizedBox(height: 12.0),
                                                 Text(
-                                                  snapshot2.data![i].name, 
+                                                  postData?['Name'] ?? 'test', 
                                                   style: Theme.of(context).textTheme.labelMedium,
                                                   softWrap: true,
                                                 ),
@@ -198,7 +221,7 @@ class TRequestsPost extends StatelessWidget {
                                                             borderRadius: BorderRadius.circular(20.0),
                                                           ),
                                                           padding: const EdgeInsets.all(5.0),
-                                                          child: Text(snapshot2.data![i].brand, 
+                                                          child: Text(postData?['Brand'] ?? 'test', 
                                                           style: Theme.of(context).textTheme.displaySmall,
                                                           )),
                                                                 
@@ -210,7 +233,7 @@ class TRequestsPost extends StatelessWidget {
                                                             borderRadius: BorderRadius.circular(20.0),
                                                           ),                                                  
                                                           padding: const EdgeInsets.all(5.0),
-                                                          child: Text(snapshot2.data![i].year, 
+                                                          child: Text(postData?['Year'] ?? 'test', 
                                                           style: Theme.of(context).textTheme.displaySmall,
                                                           )),
                                                       ],
@@ -259,10 +282,12 @@ class TRequestsPost extends StatelessWidget {
           }
         } else {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: tPrimaryColor,
+            ),
           );
         }
-        return const Text('sample');
+        return const Text('Check your internet connection');
       },
     );
   },

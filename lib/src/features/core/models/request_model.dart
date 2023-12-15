@@ -10,6 +10,7 @@ class RequestModel {
   final String year;
   final String location;
   final DateTime? timestamp;
+  final String category;
 
 
 
@@ -21,6 +22,7 @@ class RequestModel {
     required this.brand, 
     required this.year, 
     required this.location,
+    required this.category,
     this.id,
     this.timestamp,
 
@@ -33,6 +35,7 @@ class RequestModel {
       'Description': description,
       'Brand': brand,
       'Year': year,
+      'Category': category,
       'Location': location,
       'TimeStamp': FieldValue.serverTimestamp(),
     };
@@ -49,6 +52,7 @@ class RequestModel {
       brand: data?['Brand'], 
       year: data?['Year'], 
       location: data?['Location'], 
+      category: data?['Category'],
       timestamp: (data?['TimeStamp'] as Timestamp).toDate(),
     );
   } 
