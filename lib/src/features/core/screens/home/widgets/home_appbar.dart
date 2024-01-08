@@ -5,6 +5,7 @@ import 'package:cyclone/src/constants/text_strings.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:cyclone/src/features/core/controllers/image_picker_controller.dart';
 import 'package:cyclone/src/features/core/controllers/profile_controller.dart';
+import 'package:cyclone/src/features/core/screens/chat/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,12 +42,14 @@ class THomeAppBar extends StatelessWidget {
 
            
                   actions: [
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.energy_savings_leaf), ),
-                    IconButton(onPressed: (){}, icon: const Icon(Icons.email_rounded)),
+                    IconButton(onPressed: (){}, icon: const Icon(Icons.energy_savings_leaf), color: tWhiteColor,),
+                    IconButton(onPressed: (){
+                      Get.to(() => ChatScreen(userId: user.id,));
+                    }, icon: const Icon(Icons.email_rounded), color: tWhiteColor,),
                     Stack(
                       alignment: Alignment.center,
                       children: [
-                        IconButton(onPressed: (){}, icon: const Icon(Icons.notifications_active_rounded)),
+                        IconButton(onPressed: (){}, icon: const Icon(Icons.notifications_active_rounded), color: tWhiteColor,),
                         Positioned(
                           right: 0,
                           top: 9,

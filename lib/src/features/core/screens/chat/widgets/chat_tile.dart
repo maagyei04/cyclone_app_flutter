@@ -1,6 +1,7 @@
 import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/features/authentication/models/user_model.dart';
 import 'package:cyclone/src/features/core/screens/chat/chat.dart';
+import 'package:cyclone/src/features/core/screens/chat/chat_detail.dart';
 import 'package:cyclone/src/repository/user_repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class ChatTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final userInfoController = Get.put(UserRepository());
 
-    return FutureBuilder<UserModel?>(
+    return FutureBuilder<UserModel>(
       future: userInfoController.getUserInfoById(userId),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -45,13 +46,16 @@ class ChatTile extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              Get.to(() => ChatScreen(userId: userId));
+              Get.to(() => ChatDetail(userId: userId,), arguments: user.firstName);
             },
             child: Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 30,
                   backgroundColor: tSecondaryColor,
+                  backgroundImage: user.picture.isNotEmpty 
+                          ? NetworkImage(user.picture)
+                          : null,
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -59,7 +63,7 @@ class ChatTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                         user.firstName ?? 'default...', 
+                         user.firstName, 
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -70,15 +74,15 @@ class ChatTile extends StatelessWidget {
                         children: [
                           Flexible(
                             child: Text(
-                              lastMessage ?? 'default...',
+                              lastMessage,
                               style: const TextStyle(color: tSecondaryColor),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          const Text('--'),
-                          const Text(
-                            'default...',
-                            style: TextStyle(color: tSecondaryColor),
+                          const Icon(Icons.arrow_right_outlined),
+                          Text(
+                            '${lastMessageTs.minute} min ago...',
+                            style: const TextStyle(color: tSecondaryColor),
                           )
                         ],
                       )

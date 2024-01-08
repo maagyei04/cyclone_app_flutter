@@ -136,7 +136,7 @@ class ChatRepository {
 
       await myChatroomRef 
       .update({
-        'LastMessage': 'sent a $messageType',
+        'LastMessage': "Sent a $messageType",
         'LastMessageTs': now.millisecondsSinceEpoch,
       });
 
