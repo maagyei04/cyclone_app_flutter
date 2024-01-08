@@ -7,7 +7,9 @@ import 'package:cyclone/src/constants/image_strings.dart';
 import 'package:cyclone/src/features/core/controllers/profile_controller.dart';
 import 'package:cyclone/src/features/core/models/post_model.dart';
 import 'package:cyclone/src/features/core/models/request_model.dart';
+import 'package:cyclone/src/features/core/screens/chat/chat.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/detail_screen.dart';
+import 'package:cyclone/src/repository/authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,7 +22,10 @@ class TRequestsPost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ProfileController());
+    final controller2 = Get.put(AuthenticationRepository());
 
+
+    var userId = controller2.getUserID;
 
     return Container(
      padding: const EdgeInsets.all(10.0),
@@ -126,7 +131,7 @@ class TRequestsPost extends StatelessWidget {
                                               IconButton(
                                                 icon: const Icon(Icons.send, color: tPrimaryColor,),
                                                 onPressed: () {
-                                                  // Add onPressed functionality here
+                                                  Get.to(() => ChatScreen(userId: userId));
                                                 },
                                               ),
                                             ],
@@ -241,7 +246,7 @@ class TRequestsPost extends StatelessWidget {
                                                     IconButton(
                                                       icon: const Icon(Icons.send, color: tPrimaryColor,),
                                                       onPressed: () {
-                                                        // Add onPressed functionality here
+                                                        Get.to(() => ChatScreen(userId: userId));
                                                       },
                                                     ),
 

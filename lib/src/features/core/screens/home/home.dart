@@ -5,10 +5,12 @@ import 'package:cyclone/src/commom_widgets/texts/section_heading.dart';
 import 'package:cyclone/src/constants/colors.dart';
 import 'package:cyclone/src/constants/image_strings.dart';
 import 'package:cyclone/src/constants/sizes.dart';
+import 'package:cyclone/src/features/core/screens/chat/providers/get_all_chats_provider.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/home_appbar.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/home_categories.dart';
 import 'package:cyclone/src/features/core/screens/home/widgets/requests_posts.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,6 +20,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ChatroomController());
+
 
     var mediaQuery = MediaQuery.of(context);
     var width = mediaQuery.size.width;

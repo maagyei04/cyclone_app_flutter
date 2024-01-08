@@ -75,6 +75,17 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<UserModel> getUserInfoById(String userId) async {
+    final snapshot = await _db.collection("Users")
+    .where("UserId", isEqualTo: userId)
+      .get();
+
+      final userInfo = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+      return userInfo;
+  }
+
+
+
   Future<List<UserModel>> allUsers() async {
     final snapshot = await _db.collection("Users").get();
     final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).toList();
@@ -306,7 +317,7 @@ UploadTask uploadTask = ref.putFile(controller.image.value);
       print(e);
     }
     return resp; 
-  }
+  } 
   
 
   Future<void> deleteUserByPhoneNumber(String phoneNumber) async {

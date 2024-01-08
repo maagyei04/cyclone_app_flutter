@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
   final String? id;
@@ -24,6 +25,7 @@ class UserModel {
 
   toJson() {
     return {
+      "UserId": FirebaseAuth.instance.currentUser!.uid,
       "FirstName": firstName,
       "LastName": lastName,
       "Email": email,
@@ -39,7 +41,7 @@ class UserModel {
 
   if (data != null) {
     return UserModel(
-      id: document.id,
+      id: data["UserId"] ?? '',
       firstName: data["FirstName"] ?? '', 
       lastName: data["LastName"] ?? '', 
       email: data["Email"] ?? '',
@@ -53,5 +55,20 @@ class UserModel {
   // If data is null or empty, return default UserModel or handle accordingly
   return const UserModel(school: '', firstName: '', lastName: '', email: '', password: '', phoneNumber: '', picture: ''); // Create a default UserModel or handle null case
 }
+
+
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map["UserId"] ?? '',
+      firstName: map["FirstName"] ?? '', 
+      lastName: map["LastName"] ?? '', 
+      email: map["Email"] ?? '',
+      password: map["Password"] ?? '', 
+      phoneNumber: map["Phone"] ?? '',
+      school: map["School"] ?? '',
+      picture: map["Picture"] ?? '',
+    );
+  }
+
  
 }
